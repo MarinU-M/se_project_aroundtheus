@@ -1,0 +1,13 @@
+.header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  border-bottom: solid #545454 1px;
+}
+
+.header__logo {
+  max-width: 173px;
+  max-height: 33px;
+  margin-top: 45px;
+  margin-bottom: 40px;
+}

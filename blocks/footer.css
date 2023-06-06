@@ -1,0 +1,16 @@
+.footer {
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
+}
+
+.footer__copyright {
+  color: #545454;
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin: 67px auto 60px 0;
+}
