@@ -22,4 +22,4 @@ The way you'll do this at work is by exporting images directly from Figma — we
 Good luck and have fun!
 
 **Github page**
-https://github.com/MarinU-M/se_project_aroundtheus
+https://marinu-m.github.io/se_project_aroundtheus/
