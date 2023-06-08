@@ -13,16 +13,16 @@
   min-height: 100vh;
 }
 
-@media screen and (max-width: 1100px) {
-  .page__content {
+.page__section {
+  width: 100%;
+  max-width: 880px;
+  position: relative;
+  font-family: "Inter", sans-serif;
+}
+
+@media screen and (max-width: 1100px) and (min-width: 350px) {
+  .page__section {
     margin: 0 20px;
     max-width: calc(100% - 40px);
   }
-}
-
-.page__section {
-  max-width: 880px;
-  width: 100%;
-  position: relative;
-  font-family: "Inter", sans-serif;
 }

@@ -30,6 +30,9 @@
   line-height: 48px;
   grid-area: name;
   margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .profile__edit-button {
@@ -53,6 +56,9 @@
   line-height: 21.78px;
   margin: 0;
   grid-area: description;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .profile__add-button {
@@ -68,7 +74,7 @@
 .profile__add-button:hover {
   opacity: 60%;
 }
-@media screen and (max-width: 772px) and (min-width: 622px) {
+@media screen and (max-width: 820px) and (min-width: 622px) {
   .profile__name {
     font-size: 32px;
     line-height: 38px;
