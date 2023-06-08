@@ -6,6 +6,7 @@
 - Figma
 - Images
 - Github page (06/07 added)
+- Technologies I used (06/08 added)
 
 **Intro**
 
@@ -22,4 +23,14 @@ The way you'll do this at work is by exporting images directly from Figma — we
 Good luck and have fun!
 
 **Github page**
-https://marinu-m.github.io/se_project_aroundtheus/
+
+- [Link to the finished project on github](https://marinu-m.github.io/se_project_aroundtheus/)
+
+**Technologies I used**
+
+- BEM method
+
+- flexbox
+- grid
+- hover state
+- media query, responsive design

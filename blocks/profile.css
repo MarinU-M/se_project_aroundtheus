@@ -39,10 +39,11 @@
   height: 24px;
   grid-area: button;
   align-self: center;
+  border: 1px solid #ffffff;
 }
 
 .profile__edit-button:hover {
-  opacity: 70%;
+  opacity: 60%;
 }
 
 .profile__description {
@@ -60,42 +61,31 @@
   margin-left: auto;
   width: 150px;
   height: 50px;
+  border: 2px solid #ffffff;
+  border-radius: 2px;
 }
 
 .profile__add-button:hover {
-  opacity: 70%;
+  opacity: 60%;
 }
 @media screen and (max-width: 772px) and (min-width: 622px) {
   .profile__name {
-    font-family: "Inter", sans-serif;
     font-size: 32px;
-    font-weight: 500;
-    line-height: 48px;
-    grid-area: name;
-    margin: 0;
+    line-height: 38px;
   }
 
   .profile__description {
-    font-family: "Inter", sans-serif;
     font-size: 16px;
-    font-weight: 400;
-    line-height: 21.78px;
-    margin: 0;
-    grid-area: description;
+    line-height: 20px;
   }
 
   .profile__add-button {
-    background: transparent center no-repeat;
-    background-image: url("../images/addbutton.svg");
-    margin-left: auto;
     width: 50px;
-    height: 50px;
   }
 }
 
 @media screen and (max-width: 621px) {
   .profile {
-    display: flex;
     flex-direction: column;
     justify-content: center;
   }
@@ -105,7 +95,6 @@
   }
 
   .profile__info {
-    display: grid;
     grid-gap: 14px 10px;
     grid-template-areas:
       "name button"
@@ -119,14 +108,10 @@
   .profile__name {
     font-size: 22px;
     line-height: 26.63px;
-    font-weight: 500;
     text-align: center;
-    font-family: "Inter", sans-serif;
   }
 
   .profile__edit-button {
-    background: transparent center no-repeat;
-    background-image: url("../images/editbutton.svg");
     width: 18px;
     height: 18px;
     align-self: center;
@@ -134,9 +119,7 @@
   }
 
   .profile__description {
-    font-family: "Inter", sans-serif;
     font-size: 14px;
-    font-weight: 400;
     line-height: 17px;
     width: 282px;
     text-align: center;
@@ -144,7 +127,6 @@
 
   .profile__add-button {
     width: 282px;
-    height: 50px;
     margin: auto;
     position: relative;
   }

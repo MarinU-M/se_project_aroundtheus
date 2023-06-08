@@ -2,7 +2,8 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  border-bottom: solid #545454 1px;
+  border-bottom: solid 1px rgba(84, 84, 84, 0.7);
+  /* border: 70%; */
 }
 
 .header__logo {

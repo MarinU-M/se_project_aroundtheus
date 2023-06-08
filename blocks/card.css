@@ -3,7 +3,6 @@
   color: #000;
   background-color: #fff;
   width: 282px;
-  height: 361px;
   border-radius: 3%;
   display: flex;
   flex-direction: column;
@@ -43,5 +42,5 @@
 }
 
 .card__like-button:hover {
-  opacity: 70%;
+  opacity: 50%;
 }
