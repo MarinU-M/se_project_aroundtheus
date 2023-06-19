@@ -6,7 +6,7 @@
 - Figma
 - Images
 - Github page (06/07 added)
-- Technologies I used (06/18 updated)
+- Technologies (06/18 updated)
 
 **Intro**
 
@@ -26,7 +26,7 @@ Good luck and have fun!
 
 - [Link to the finished project on github](https://marinu-m.github.io/se_project_aroundtheus/)
 
-**Technologies I used**
+**Technologies**
 
 - BEM method
 
