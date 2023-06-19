@@ -6,7 +6,7 @@
 - Figma
 - Images
 - Github page (06/07 added)
-- Technologies I used (06/08 added)
+- Technologies I used (06/18 updated)
 
 **Intro**
 
@@ -34,3 +34,5 @@ Good luck and have fun!
 - grid
 - hover state
 - media query, responsive design
+
+- JavaScript
