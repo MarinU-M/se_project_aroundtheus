@@ -29,6 +29,7 @@
               class="profile__edit-button"
               type="button"
               aria-label="edit button"
+              id="profile__edit-button"
             ></button>
             <p class="profile__description">Explorer</p>
           </div>
@@ -138,24 +139,24 @@
       </footer>
     </div>
 
-    <div class="modal">
-      <div class="modal__container">
-        <button class="modal__close"></button>
-        <p class="modal__heading">Edit Profile</p>
-        <form class="modal__form">
+    <div class="popup" id="popup">
+      <div class="popup__container">
+        <button class="popup__close" id="close"></button>
+        <p class="popup__heading">Edit Profile</p>
+        <form class="popup__form">
           <input
             type="text"
             name="name"
-            class="modal__input"
+            class="popup__input"
             placeholder="Name"
           />
           <input
             type="text"
             name="description"
-            class="modal__input"
+            class="popup__input"
             placeholder="Description"
           />
-          <button class="modal__save">Save</button>
+          <button class="popup__save">Save</button>
         </form>
       </div>
     </div>

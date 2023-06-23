@@ -36,3 +36,4 @@ Good luck and have fun!
 - media query, responsive design
 
 - JavaScript
+  - Popup screen
