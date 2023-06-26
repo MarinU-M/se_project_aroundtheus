@@ -24,14 +24,16 @@
             alt="Photo of Jacques Cousteau"
           />
           <div class="profile__info">
-            <h1 class="profile__name">Jacques Cousteau</h1>
+            <h1 class="profile__name" id="profile__name">Jacques Cousteau</h1>
             <button
               class="profile__edit-button"
               type="button"
               aria-label="edit button"
               id="profile__edit-button"
             ></button>
-            <p class="profile__description">Explorer</p>
+            <p class="profile__description" id="profile__description">
+              Explorer
+            </p>
           </div>
           <button
             class="profile__add-button"
@@ -141,22 +143,24 @@
 
     <div class="popup" id="popup">
       <div class="popup__container">
-        <button class="popup__close" id="close"></button>
+        <button class="popup__close" id="close" type="button"></button>
         <p class="popup__heading">Edit Profile</p>
-        <form class="popup__form">
+        <form class="popup__form" id="popup__form">
           <input
             type="text"
             name="name"
             class="popup__input"
             placeholder="Name"
+            id="name-input"
           />
           <input
             type="text"
             name="description"
             class="popup__input"
             placeholder="Description"
+            id="description-input"
           />
-          <button class="popup__save">Save</button>
+          <button class="popup__save" type="submit">Save</button>
         </form>
       </div>
     </div>
