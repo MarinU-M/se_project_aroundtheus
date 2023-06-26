@@ -41,130 +41,52 @@
             aria-label="add button"
           ></button>
         </section>
-        <section class="gallery">
-          <ul class="gallery__cards">
-            <li class="card">
-              <img
-                class="card__image"
-                src="./images/yosemite.jpg"
-                alt="Yosemite Valley"
-              />
-              <div class="card__description">
-                <h2 class="card__title">Yosemite Valley</h2>
-                <button
-                  class="card__like-button"
-                  type="button"
-                  aria-label="like button"
-                ></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                class="card__image"
-                src="./images/lake-louise.jpg"
-                alt="Lake Louise"
-              />
-              <div class="card__description">
-                <h2 class="card__title">Lake Louise</h2>
-                <button
-                  class="card__like-button"
-                  type="button"
-                  aria-label="like button"
-                ></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                class="card__image"
-                src="./images/bald-mountains.jpg"
-                alt="Bald Mountains"
-              />
-              <div class="card__description">
-                <h2 class="card__title">Bald Mountains</h2>
-                <button
-                  class="card__like-button"
-                  type="button"
-                  aria-label="like button"
-                ></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                class="card__image"
-                src="./images/latemar.jpg"
-                alt="Latemar"
-              />
-              <div class="card__description">
-                <h2 class="card__title">Latemar</h2>
-                <button
-                  class="card__like-button"
-                  type="button"
-                  aria-label="like button"
-                ></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                class="card__image"
-                src="./images/vanoise.jpg"
-                alt="Vanoise National Park"
-              />
-              <div class="card__description">
-                <h2 class="card__title">Vanoise National Park</h2>
-                <button
-                  class="card__like-button"
-                  type="button"
-                  aria-label="like button"
-                ></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                class="card__image"
-                src="./images/lago.jpg"
-                alt="Lago di Braies"
-              />
-              <div class="card__description">
-                <h2 class="card__title">Lago di Braies</h2>
-                <button
-                  class="card__like-button"
-                  type="button"
-                  aria-label="like button"
-                ></button>
-              </div>
-            </li>
-          </ul>
-        </section>
+        <div class="gallery">
+          <ul class="gallery__cards" id="gallery__cards"></ul>
+        </div>
       </main>
       <footer class="footer">
         <p class="footer__copyright">© 2022 Around The U.S.</p>
       </footer>
     </div>
 
-    <div class="popup" id="popup">
-      <div class="popup__container">
-        <button class="popup__close" id="close" type="button"></button>
-        <p class="popup__heading">Edit Profile</p>
-        <form class="popup__form" id="popup__form">
+    <div class="modal" id="modal">
+      <div class="modal__container">
+        <button class="modal__close" id="close" type="button"></button>
+        <p class="modal__heading">Edit Profile</p>
+        <form class="modal__form" id="modal__form">
           <input
             type="text"
             name="name"
-            class="popup__input"
+            class="modal__input"
             placeholder="Name"
             id="name-input"
           />
           <input
             type="text"
             name="description"
-            class="popup__input"
+            class="modal__input"
             placeholder="Description"
             id="description-input"
           />
-          <button class="popup__save" type="submit">Save</button>
+          <button class="modal__save" type="submit">Save</button>
         </form>
       </div>
     </div>
 
+    <template id="card-template">
+      <li class="card">
+        <img class="card__image" src="" alt="" id="card__image" />
+        <div class="card__description">
+          <h2 class="card__title" id="card__title"></h2>
+          <button
+            class="card__like-button"
+            type="button"
+            aria-label="like button"
+          ></button>
+        </div>
+      </li>
+    </template>
     <script src="./scripts/index.js"></script>
   </body>
 </html>
