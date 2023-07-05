@@ -36,6 +36,7 @@ const cardTemplate =
 const cardList = document.querySelector("#gallery__cards");
 const photoAddModal = document.querySelector("#photo-modal");
 const photoAddForm = photoAddModal.querySelector("#photo-modal__form");
+const fullPhotoModal = document.querySelector("#fullPhoto-modal");
 
 // Button and others
 const profileEditBtn = document.querySelector("#profile__edit-button");
@@ -44,6 +45,7 @@ const profileDescription = document.querySelector("#profile__description");
 const profileEditCloseBtn = profileEditModal.querySelector("#close");
 const photoAddBtn = document.querySelector("#profile__add-button");
 const photoAddCloseBtn = photoAddModal.querySelector("#close");
+// const fullPhotoCloseBtn = fullPhotoModal.querySelector("#close");
 
 // From inputs
 const profileNameInput = profileEditModal.querySelector("#name-input");
@@ -64,6 +66,22 @@ function getCardElement(cardData) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImageElement = cardElement.querySelector("#card__image");
   const cardTitleElement = cardElement.querySelector("#card__title");
+  const cardLikeBtn = cardElement.querySelector("#card__like-button");
+  const cardDeleteBtn = cardElement.querySelector("#card__delete");
+  const fullPhotoCloseBtn = fullPhotoModal.querySelector("#close");
+
+  cardLikeBtn.addEventListener("click", () => {
+    cardLikeBtn.classList.toggle("card__like-button_active");
+  });
+  cardDeleteBtn.addEventListener("click", () => {
+    cardElement.remove();
+  });
+  cardImageElement.addEventListener("click", () => {
+    toggleModal(fullPhotoModal);
+  });
+  fullPhotoCloseBtn.addEventListener("click", () => {
+    toggleModal(fullPhotoModal);
+  });
   cardImageElement.src = cardData.link;
   cardImageElement.alt = cardData.name;
   cardTitleElement.innerText = cardData.name;
@@ -126,3 +144,8 @@ photoAddCloseBtn.addEventListener("click", function () {
 
 // save the photo add popup
 photoAddForm.addEventListener("submit", handlePhotoAddSubmit);
+
+// const cardLikeButton = document.querySelector("#card__like-button");
+// cardLikeButton.addEventListener("click", () => {
+//   cardLikeButton.classList.toggle("card__like-button_active");
+// });
