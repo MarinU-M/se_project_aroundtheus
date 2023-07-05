@@ -39,6 +39,7 @@
             class="profile__add-button"
             type="button"
             aria-label="add button"
+            id="profile__add-button"
           ></button>
         </section>
         <div class="gallery">
@@ -50,7 +51,8 @@
       </footer>
     </div>
 
-    <div class="modal" id="modal">
+    <!-- Profile modal -->
+    <div class="modal" id="profile-modal">
       <div class="modal__container">
         <button class="modal__close" id="close" type="button"></button>
         <p class="modal__heading">Edit Profile</p>
@@ -74,6 +76,31 @@
       </div>
     </div>
 
+    <!-- Photo modal -->
+    <div class="modal" id="photo-modal">
+      <div class="modal__container">
+        <button class="modal__close" id="close" type="button"></button>
+        <p class="modal__heading">New Place</p>
+        <form class="modal__form" id="photo-modal__form">
+          <input
+            type="text"
+            name="title"
+            class="modal__input"
+            placeholder="Title"
+            id="title-input"
+          />
+          <input
+            type="text"
+            name="image link"
+            class="modal__input"
+            placeholder="Image Link"
+            id="image-link-input"
+          />
+          <button class="modal__save" type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+
     <template id="card-template">
       <li class="card">
         <img class="card__image" src="" alt="" id="card__image" />
@@ -87,6 +114,7 @@
         </div>
       </li>
     </template>
+
     <script src="./scripts/index.js"></script>
   </body>
 </html>

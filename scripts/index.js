@@ -1,3 +1,6 @@
+/* ------------------------------------------------------------------------------------------------------------- */
+/*                                                  Elements                                                     */
+/* ------------------------------------------------------------------------------------------------------------- */
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -25,58 +28,101 @@ const initialCards = [
   },
 ];
 
-// Elements
-const profileEditBtn = document.querySelector("#profile__edit-button");
-const profileEditModal = document.querySelector("#modal");
-const profileEditCloseBtn = document.querySelector("#close");
-const profileName = document.querySelector("#profile__name");
-const profileDescription = document.querySelector("#profile__description");
-const profileNameInput = document.querySelector("#name-input");
-const profileDescriptionInput = document.querySelector("#description-input");
+// Wrapper
+const profileEditModal = document.querySelector("#profile-modal");
 const profileEditForm = profileEditModal.querySelector("#modal__form");
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 const cardList = document.querySelector("#gallery__cards");
+const photoAddModal = document.querySelector("#photo-modal");
+const photoAddForm = photoAddModal.querySelector("#photo-modal__form");
 
-// Functions
-function toggleModal() {
-  profileEditModal.classList.toggle("modal_opened");
+// Button and others
+const profileEditBtn = document.querySelector("#profile__edit-button");
+const profileName = document.querySelector("#profile__name");
+const profileDescription = document.querySelector("#profile__description");
+const profileEditCloseBtn = profileEditModal.querySelector("#close");
+const photoAddBtn = document.querySelector("#profile__add-button");
+const photoAddCloseBtn = photoAddModal.querySelector("#close");
+
+// From inputs
+const profileNameInput = profileEditModal.querySelector("#name-input");
+const profileDescriptionInput =
+  profileEditModal.querySelector("#description-input");
+const photoTitleInput = photoAddModal.querySelector("#title-input");
+const photoLinkInput = photoAddModal.querySelector("#image-link-input");
+
+/* ------------------------------------------------------------------------------------------------------------- */
+/*                                                 Functions                                                     */
+/* ------------------------------------------------------------------------------------------------------------- */
+
+function toggleModal(modal) {
+  modal.classList.toggle("modal_opened");
 }
 
 function getCardElement(cardData) {
-  // clone the template element with all its content and store it in a cardElement variable
   const cardElement = cardTemplate.cloneNode(true);
-
-  // access the card title and image and store them in variables
   const cardImageElement = cardElement.querySelector("#card__image");
   const cardTitleElement = cardElement.querySelector("#card__title");
-  // set the path to the image to the link field of the object
   cardImageElement.src = cardData.link;
-  // set the image alt text to the name field of the object
   cardImageElement.alt = cardData.name;
-  // set the card title to the name field of the object, too
   cardTitleElement.innerText = cardData.name;
-  // return the ready HTML element with the filled-in data
   return cardElement;
 }
 
-// Event Listner
-profileEditBtn.addEventListener("click", function () {
-  profileNameInput.value = profileName.innerText;
-  profileDescriptionInput.value = profileDescription.innerText;
-  toggleModal();
-});
-
-profileEditCloseBtn.addEventListener("click", toggleModal);
-
-profileEditForm.addEventListener("submit", function (evt) {
+function handleProfileEditSubmit(evt) {
   evt.preventDefault();
   profileName.innerText = profileNameInput.value;
   profileDescription.innerText = profileDescriptionInput.value;
-  toggleModal();
+  toggleModal(profileEditModal);
+}
+
+function renderCard(cardData, cardList) {
+  const cardElement = getCardElement(cardData);
+  cardList.prepend(cardElement);
+}
+
+function handlePhotoAddSubmit(evt) {
+  evt.preventDefault();
+  const title = photoTitleInput.value;
+  const link = photoLinkInput.value;
+  renderCard({ title, link }, cardList);
+  toggleModal(photoAddModal);
+}
+
+/* ------------------------------------------------------------------------------------------------------------- */
+/*                                               Event Listner                                                   */
+/* ------------------------------------------------------------------------------------------------------------- */
+// open the profile edit popup
+profileEditBtn.addEventListener("click", function () {
+  profileNameInput.value = profileName.innerText;
+  profileDescriptionInput.value = profileDescription.innerText;
+  toggleModal(profileEditModal);
 });
 
+// close the proffile edit popup
+profileEditCloseBtn.addEventListener("click", function () {
+  toggleModal(profileEditModal);
+});
+
+// save the profile edit popup
+profileEditForm.addEventListener("submit", handleProfileEditSubmit);
+
+// render the cards
 initialCards.forEach((cardData) => {
   const cardElement = getCardElement(cardData);
   cardList.append(cardElement);
 });
+
+// open the photo add popup
+photoAddBtn.addEventListener("click", function () {
+  toggleModal(photoAddModal);
+});
+
+// close the photo add popup
+photoAddCloseBtn.addEventListener("click", function () {
+  toggleModal(photoAddModal);
+});
+
+// save the photo add popup
+photoAddForm.addEventListener("submit", handlePhotoAddSubmit);
