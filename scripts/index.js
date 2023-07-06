@@ -60,8 +60,12 @@ const photoLinkInput = photoAddModal.querySelector("#image-link-input");
 /*      Functions     */
 /* ------------------ */
 
-function toggleModal(modal) {
-  modal.classList.toggle("modal_opened");
+function openModal(modal) {
+  modal.classList.add("modal_opened");
+}
+
+function closeModal(modal) {
+  modal.classList.remove("modal_opened");
 }
 
 function getCardElement(cardData) {
@@ -81,7 +85,7 @@ function getCardElement(cardData) {
     fullPhotoModal.querySelector(".modal__full-photo").src = cardData.link;
     fullPhotoModal.querySelector(".modal__full-photo").alt = cardData.name;
     fullPhotoModal.querySelector(".modal__title").innerText = cardData.name;
-    toggleModal(fullPhotoModal);
+    openModal(fullPhotoModal);
   });
 
   cardImageElement.src = cardData.link;
@@ -94,7 +98,7 @@ function handleProfileEditSubmit(evt) {
   evt.preventDefault();
   profileName.innerText = profileNameInput.value;
   profileDescription.innerText = profileDescriptionInput.value;
-  toggleModal(profileEditModal);
+  closeModal(profileEditModal);
 }
 
 function renderCard(cardData, cardList) {
@@ -107,7 +111,7 @@ function handlePhotoAddSubmit(evt) {
   const name = photoTitleInput.value;
   const link = photoLinkInput.value;
   renderCard({ name, link }, cardList);
-  toggleModal(photoAddModal);
+  closeModal(photoAddModal);
 }
 
 /* ----------------------- */
@@ -117,12 +121,12 @@ function handlePhotoAddSubmit(evt) {
 profileEditBtn.addEventListener("click", function () {
   profileNameInput.value = profileName.innerText;
   profileDescriptionInput.value = profileDescription.innerText;
-  toggleModal(profileEditModal);
+  openModal(profileEditModal);
 });
 
 // close the proffile edit popup
 profileEditCloseBtn.addEventListener("click", function () {
-  toggleModal(profileEditModal);
+  closeModal(profileEditModal);
 });
 
 // save the profile edit popup
@@ -136,12 +140,12 @@ initialCards.forEach((cardData) => {
 
 // open the photo add popup
 photoAddBtn.addEventListener("click", function () {
-  toggleModal(photoAddModal);
+  openModal(photoAddModal);
 });
 
 // close the photo add popup
 photoAddCloseBtn.addEventListener("click", function () {
-  toggleModal(photoAddModal);
+  closeModal(photoAddModal);
 });
 
 // save the photo add popup
@@ -149,5 +153,5 @@ photoAddForm.addEventListener("submit", handlePhotoAddSubmit);
 
 // close the full photo modal
 fullPhotoCloseBtn.addEventListener("click", () => {
-  toggleModal(fullPhotoModal);
+  closeModal(fullPhotoModal);
 });
