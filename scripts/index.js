@@ -112,8 +112,7 @@ function handlePhotoAddSubmit(evt) {
   const link = photoLinkInput.value;
   renderCard({ name, link }, cardList);
   closeModal(photoAddModal);
-  name.reset();
-  link.reset();
+  evt.target.reset();
 }
 
 /* ----------------------- */
