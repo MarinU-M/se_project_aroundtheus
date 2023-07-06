@@ -54,9 +54,9 @@
     <!-- Profile Edit modal -->
     <div class="modal" id="profile-modal">
       <div class="modal__container">
-        <button class="modal__close" id="close" type="button"></button>
+        <button class="modal__close" id="profile_close" type="button"></button>
         <p class="modal__heading">Edit Profile</p>
-        <form class="modal__form" id="modal__form">
+        <form class="modal__form" id="profile_form">
           <input
             type="text"
             name="name"
@@ -77,9 +77,13 @@
     </div>
 
     <!-- Photo Add modal -->
-    <div class="modal" id="photo-modal">
+    <div class="modal" id="photo-add-modal">
       <div class="modal__container">
-        <button class="modal__close" id="close" type="button"></button>
+        <button
+          class="modal__close"
+          id="photo-add-close"
+          type="button"
+        ></button>
         <p class="modal__heading">New Place</p>
         <form class="modal__form" id="photo-modal__form">
           <input
@@ -102,10 +106,14 @@
     </div>
 
     <!-- Full Photo modal-->
-    <div class="modal" id="fullPhoto-modal">
+    <div class="modal" id="full-photo-modal">
       <div class="modal__preview">
-        <button class="modal__close" id="close" type="button"></button>
-        <img src="" alt="" class="modal__full-photo" />
+        <button
+          class="modal__close"
+          id="full-photo-close"
+          type="button"
+        ></button>
+        <img src=" " alt="" class="modal__full-photo" />
         <p class="modal__title"></p>
       </div>
     </div>

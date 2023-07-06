@@ -30,22 +30,22 @@ const initialCards = [
 
 // Wrapper
 const profileEditModal = document.querySelector("#profile-modal");
-const profileEditForm = profileEditModal.querySelector("#modal__form");
+const profileEditForm = profileEditModal.querySelector("#profile_form");
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 const cardList = document.querySelector("#gallery__cards");
-const photoAddModal = document.querySelector("#photo-modal");
+const photoAddModal = document.querySelector("#photo-add-modal");
 const photoAddForm = photoAddModal.querySelector("#photo-modal__form");
-const fullPhotoModal = document.querySelector("#fullPhoto-modal");
+const fullPhotoModal = document.querySelector("#full-photo-modal");
 
 // Button and others
 const profileEditBtn = document.querySelector("#profile__edit-button");
 const profileName = document.querySelector("#profile__name");
 const profileDescription = document.querySelector("#profile__description");
-const profileEditCloseBtn = profileEditModal.querySelector("#close");
+const profileEditCloseBtn = profileEditModal.querySelector("#profile_close");
 const photoAddBtn = document.querySelector("#profile__add-button");
-const photoAddCloseBtn = photoAddModal.querySelector("#close");
-const fullPhotoCloseBtn = fullPhotoModal.querySelector("#close");
+const photoAddCloseBtn = photoAddModal.querySelector("#photo-add-close");
+const fullPhotoCloseBtn = fullPhotoModal.querySelector("#full-photo-close");
 
 // const fullPhotoCloseBtn = fullPhotoModal.querySelector("#close");
 
