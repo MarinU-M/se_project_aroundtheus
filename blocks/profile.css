@@ -45,7 +45,7 @@
   align-self: center;
   border: 1px solid #ffffff;
   cursor: pointer;
-  transition: opacity linear 0.3s 0.2s;
+  transition: opacity linear 0.2s 0.2s;
 }
 
 .profile__edit-button:hover {
@@ -75,7 +75,7 @@
   border-radius: 2px;
   padding: 0;
   cursor: pointer;
-  transition: opacity linear 0.3s 0.2s, width linear 0.2s 0s;
+  transition: opacity linear 0.2s 0.2s, width linear 0.2s 0s;
 }
 
 .profile__add-button:hover {

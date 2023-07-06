@@ -1,6 +1,6 @@
-/* ------------------------------------------------------------------------------------------------------------- */
-/*                                                  Elements                                                     */
-/* ------------------------------------------------------------------------------------------------------------- */
+/* ------------------ */
+/*      Elements      */
+/* ------------------ */
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -45,6 +45,8 @@ const profileDescription = document.querySelector("#profile__description");
 const profileEditCloseBtn = profileEditModal.querySelector("#close");
 const photoAddBtn = document.querySelector("#profile__add-button");
 const photoAddCloseBtn = photoAddModal.querySelector("#close");
+const fullPhotoCloseBtn = fullPhotoModal.querySelector("#close");
+
 // const fullPhotoCloseBtn = fullPhotoModal.querySelector("#close");
 
 // From inputs
@@ -54,9 +56,9 @@ const profileDescriptionInput =
 const photoTitleInput = photoAddModal.querySelector("#title-input");
 const photoLinkInput = photoAddModal.querySelector("#image-link-input");
 
-/* ------------------------------------------------------------------------------------------------------------- */
-/*                                                 Functions                                                     */
-/* ------------------------------------------------------------------------------------------------------------- */
+/* ------------------ */
+/*      Functions     */
+/* ------------------ */
 
 function toggleModal(modal) {
   modal.classList.toggle("modal_opened");
@@ -68,7 +70,6 @@ function getCardElement(cardData) {
   const cardTitleElement = cardElement.querySelector("#card__title");
   const cardLikeBtn = cardElement.querySelector("#card__like-button");
   const cardDeleteBtn = cardElement.querySelector("#card__delete");
-  const fullPhotoCloseBtn = fullPhotoModal.querySelector("#close");
 
   cardLikeBtn.addEventListener("click", () => {
     cardLikeBtn.classList.toggle("card__like-button_active");
@@ -77,11 +78,12 @@ function getCardElement(cardData) {
     cardElement.remove();
   });
   cardImageElement.addEventListener("click", () => {
+    fullPhotoModal.querySelector(".modal__full-photo").src = cardData.link;
+    fullPhotoModal.querySelector(".modal__full-photo").alt = cardData.name;
+    fullPhotoModal.querySelector(".modal__title").innerText = cardData.name;
     toggleModal(fullPhotoModal);
   });
-  fullPhotoCloseBtn.addEventListener("click", () => {
-    toggleModal(fullPhotoModal);
-  });
+
   cardImageElement.src = cardData.link;
   cardImageElement.alt = cardData.name;
   cardTitleElement.innerText = cardData.name;
@@ -102,15 +104,15 @@ function renderCard(cardData, cardList) {
 
 function handlePhotoAddSubmit(evt) {
   evt.preventDefault();
-  const title = photoTitleInput.value;
+  const name = photoTitleInput.value;
   const link = photoLinkInput.value;
-  renderCard({ title, link }, cardList);
+  renderCard({ name, link }, cardList);
   toggleModal(photoAddModal);
 }
 
-/* ------------------------------------------------------------------------------------------------------------- */
-/*                                               Event Listner                                                   */
-/* ------------------------------------------------------------------------------------------------------------- */
+/* ----------------------- */
+/*      Event Listner      */
+/* ----------------------- */
 // open the profile edit popup
 profileEditBtn.addEventListener("click", function () {
   profileNameInput.value = profileName.innerText;
@@ -145,7 +147,7 @@ photoAddCloseBtn.addEventListener("click", function () {
 // save the photo add popup
 photoAddForm.addEventListener("submit", handlePhotoAddSubmit);
 
-// const cardLikeButton = document.querySelector("#card__like-button");
-// cardLikeButton.addEventListener("click", () => {
-//   cardLikeButton.classList.toggle("card__like-button_active");
-// });
+// close the full photo modal
+fullPhotoCloseBtn.addEventListener("click", () => {
+  toggleModal(fullPhotoModal);
+});
