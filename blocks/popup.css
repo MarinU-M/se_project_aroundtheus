@@ -100,6 +100,24 @@
   transition: opacity linear 0.3s 0.2s;
 }
 
+.popup__save_disabled {
+  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.2);
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: center;
+  padding-top: 14px;
+  padding-bottom: 19px;
+  margin-top: 48px;
+  width: 100%;
+  transition: opacity linear 0.3s 0.2s;
+}
+
 .popup__save:hover {
   opacity: 80%;
 }
