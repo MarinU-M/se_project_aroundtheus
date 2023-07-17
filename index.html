@@ -51,70 +51,70 @@
       </footer>
     </div>
 
-    <!-- Profile Edit modal -->
-    <div class="modal" id="profile-modal">
-      <div class="modal__container">
-        <button class="modal__close" id="profile_close" type="button"></button>
-        <p class="modal__heading">Edit Profile</p>
-        <form class="modal__form" id="profile_form">
+    <!-- Profile Edit popup -->
+    <div class="popup" id="profile-popup">
+      <div class="popup__container">
+        <button class="popup__close" id="profile_close" type="button"></button>
+        <p class="popup__heading">Edit Profile</p>
+        <form class="popup__form" id="profile_form">
           <input
             type="text"
             name="name"
-            class="modal__input"
+            class="popup__input"
             placeholder="Name"
             id="name-input"
           />
           <input
             type="text"
             name="description"
-            class="modal__input"
+            class="popup__input"
             placeholder="Description"
             id="description-input"
           />
-          <button class="modal__save" type="submit">Save</button>
+          <button class="popup__save" type="submit">Save</button>
         </form>
       </div>
     </div>
 
-    <!-- Photo Add modal -->
-    <div class="modal" id="photo-add-modal">
-      <div class="modal__container">
+    <!-- Photo Add popup -->
+    <div class="popup" id="photo-add-popup">
+      <div class="popup__container">
         <button
-          class="modal__close"
+          class="popup__close"
           id="photo-add-close"
           type="button"
         ></button>
-        <p class="modal__heading">New Place</p>
-        <form class="modal__form" id="photo-modal__form">
+        <p class="popup__heading">New Place</p>
+        <form class="popup__form" id="photo-popup__form">
           <input
             type="text"
             name="title"
-            class="modal__input"
+            class="popup__input"
             placeholder="Title"
             id="title-input"
           />
           <input
             type="text"
             name="image link"
-            class="modal__input"
+            class="popup__input"
             placeholder="Image Link"
             id="image-link-input"
           />
-          <button class="modal__save" type="submit">Create</button>
+          <button class="popup__save" type="submit">Create</button>
         </form>
       </div>
     </div>
 
-    <!-- Full Photo modal-->
-    <div class="modal" id="full-photo-modal">
-      <div class="modal__preview">
+    <!-- Full Photo popup-->
+    <div class="popup" id="full-photo-popup">
+      <div class="popup__preview">
         <button
-          class="modal__close"
+          class="popup__close"
           id="full-photo-close"
           type="button"
         ></button>
-        <img src="#" alt="#" class="modal__full-photo" />
-        <p class="modal__title"></p>
+        <img src="#" alt="#" class="popup__full-photo" />
+        <p class="popup__title"></p>
       </div>
     </div>
 
@@ -134,6 +134,8 @@
       </li>
     </template>
 
+    <!-- JavaScript -->
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validation.js"></script>
   </body>
 </html>

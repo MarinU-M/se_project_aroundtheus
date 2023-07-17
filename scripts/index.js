@@ -29,43 +29,43 @@ const initialCards = [
 ];
 
 // Wrapper
-const profileEditModal = document.querySelector("#profile-modal");
-const profileEditForm = profileEditModal.querySelector("#profile_form");
+const profileEditPopup = document.querySelector("#profile-popup");
+const profileEditForm = profileEditPopup.querySelector("#profile_form");
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 const cardList = document.querySelector("#gallery__cards");
-const photoAddModal = document.querySelector("#photo-add-modal");
-const photoAddForm = photoAddModal.querySelector("#photo-modal__form");
-const fullPhotoModal = document.querySelector("#full-photo-modal");
+const photoAddPopup = document.querySelector("#photo-add-popup");
+const photoAddForm = photoAddPopup.querySelector("#photo-popup__form");
+const fullPhotoPopup = document.querySelector("#full-photo-popup");
 
 // Button and others
 const profileEditBtn = document.querySelector("#profile__edit-button");
 const profileName = document.querySelector("#profile__name");
 const profileDescription = document.querySelector("#profile__description");
-const profileEditCloseBtn = profileEditModal.querySelector("#profile_close");
+const profileEditCloseBtn = profileEditPopup.querySelector("#profile_close");
 const photoAddBtn = document.querySelector("#profile__add-button");
-const photoAddCloseBtn = photoAddModal.querySelector("#photo-add-close");
-const fullPhotoCloseBtn = fullPhotoModal.querySelector("#full-photo-close");
-const previewPhoto = fullPhotoModal.querySelector(".modal__full-photo");
-const previewTitle = fullPhotoModal.querySelector(".modal__title");
+const photoAddCloseBtn = photoAddPopup.querySelector("#photo-add-close");
+const fullPhotoCloseBtn = fullPhotoPopup.querySelector("#full-photo-close");
+const previewPhoto = fullPhotoPopup.querySelector(".popup__full-photo");
+const previewTitle = fullPhotoPopup.querySelector(".popup__title");
 
 // From inputs
-const profileNameInput = profileEditModal.querySelector("#name-input");
+const profileNameInput = profileEditPopup.querySelector("#name-input");
 const profileDescriptionInput =
-  profileEditModal.querySelector("#description-input");
-const photoTitleInput = photoAddModal.querySelector("#title-input");
-const photoLinkInput = photoAddModal.querySelector("#image-link-input");
+  profileEditPopup.querySelector("#description-input");
+const photoTitleInput = photoAddPopup.querySelector("#title-input");
+const photoLinkInput = photoAddPopup.querySelector("#image-link-input");
 
 /* ------------------ */
 /*      Functions     */
 /* ------------------ */
 
-function openModal(modal) {
-  modal.classList.add("modal_opened");
+function openPopup(popup) {
+  popup.classList.add("popup_opened");
 }
 
-function closeModal(modal) {
-  modal.classList.remove("modal_opened");
+function closePopup(popup) {
+  popup.classList.remove("popup_opened");
 }
 
 function getCardElement(cardData) {
@@ -85,7 +85,7 @@ function getCardElement(cardData) {
     previewPhoto.src = cardData.link;
     previewPhoto.alt = cardData.name;
     previewTitle.innerText = cardData.name;
-    openModal(fullPhotoModal);
+    openPopup(fullPhotoPopup);
   });
 
   cardImageElement.src = cardData.link;
@@ -98,7 +98,7 @@ function handleProfileEditSubmit(evt) {
   evt.preventDefault();
   profileName.innerText = profileNameInput.value;
   profileDescription.innerText = profileDescriptionInput.value;
-  closeModal(profileEditModal);
+  closePopup(profileEditPopup);
 }
 
 function renderCard(cardData, cardList) {
@@ -111,7 +111,7 @@ function handlePhotoAddSubmit(evt) {
   const name = photoTitleInput.value;
   const link = photoLinkInput.value;
   renderCard({ name, link }, cardList);
-  closeModal(photoAddModal);
+  closePopup(photoAddPopup);
   evt.target.reset();
 }
 
@@ -122,12 +122,12 @@ function handlePhotoAddSubmit(evt) {
 profileEditBtn.addEventListener("click", function () {
   profileNameInput.value = profileName.innerText;
   profileDescriptionInput.value = profileDescription.innerText;
-  openModal(profileEditModal);
+  openPopup(profileEditPopup);
 });
 
 // close the proffile edit popup
 profileEditCloseBtn.addEventListener("click", function () {
-  closeModal(profileEditModal);
+  closePopup(profileEditPopup);
 });
 
 // save the profile edit popup
@@ -141,18 +141,18 @@ initialCards.forEach((cardData) => {
 
 // open the photo add popup
 photoAddBtn.addEventListener("click", function () {
-  openModal(photoAddModal);
+  openPopup(photoAddPopup);
 });
 
 // close the photo add popup
 photoAddCloseBtn.addEventListener("click", function () {
-  closeModal(photoAddModal);
+  closePopup(photoAddPopup);
 });
 
 // save the photo add popup
 photoAddForm.addEventListener("submit", handlePhotoAddSubmit);
 
-// close the full photo modal
+// close the full photo popup
 fullPhotoCloseBtn.addEventListener("click", () => {
-  closeModal(fullPhotoModal);
+  closePopup(fullPhotoPopup);
 });
