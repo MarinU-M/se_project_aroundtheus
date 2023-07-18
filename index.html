@@ -79,7 +79,9 @@
             required
           />
           <span class="popup__error" id="description-input-error"></span>
-          <button class="popup__save" type="submit">Save</button>
+          <button class="popup__save" type="submit" id="popup__save">
+            Save
+          </button>
         </form>
       </div>
     </div>
@@ -100,17 +102,23 @@
             class="popup__input"
             placeholder="Title"
             id="title-input"
+            minlength="1"
+            maxlength="30"
+            required
           />
-          <span class="popup__error"></span>
+          <span class="popup__error" id="title-input-error"></span>
           <input
-            type="text"
+            type="url"
             name="image link"
             class="popup__input"
             placeholder="Image Link"
             id="image-link-input"
+            required
           />
-          <span class="popup__error"></span>
-          <button class="popup__save" type="submit">Create</button>
+          <span class="popup__error" id="image-link-input-error"></span>
+          <button class="popup__save" type="submit" id="popup__save">
+            Create
+          </button>
         </form>
       </div>
     </div>

@@ -34,23 +34,31 @@ function checkInputValidity(formElement, inputElement, options) {
   }
 }
 
+function hasInvalidInput(inputElements) {
+  return !inputElements.every((inputElement) => inputElement.validity.valid);
+}
+
+function disableBtn(submitButtonSelector, inactiveButtonClass) {
+  submitButtonSelector[0].classList.add(inactiveButtonClass);
+  return (submitButtonSelector.disabled = true);
+}
+
+function enableBtn(submitButtonSelector, inactiveButtonClass) {
+  submitButtonSelector[0].classList.remove(inactiveButtonClass);
+  return (submitButtonSelector.disabled = false);
+}
+
 function toggleBtnState(inputElements, submitButtonSelector, options) {
   const inactiveButtonClass = options.inactiveButtonClass;
-  let foundInvalid = false;
 
-  inputElements.forEach((inputElement) => {
-    if (!inputElement.validity.valid) {
-      foundInvalid = true;
-    }
-  });
-
-  if (foundInvalid) {
+  if (hasInvalidInput(inputElements)) {
     submitButtonSelector[0].classList.add(inactiveButtonClass);
-    submitButtonSelector.disabled = true;
-  } else {
-    submitButtonSelector[0].classList.remove(inactiveButtonClass);
-    submitButtonSelector.disabled = false;
+    return (submitButtonSelector.disabled = true);
+    // disableBtn(submitButtonSelector, inactiveButtonClass);
   }
+  submitButtonSelector[0].classList.remove(inactiveButtonClass);
+  submitButtonSelector.disabled = false;
+  // enableBtn(submitButtonSelector, inactiveButtonClass)
 }
 
 function setEventListeners(formElement, options) {

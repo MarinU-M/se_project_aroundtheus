@@ -37,6 +37,8 @@ const cardList = document.querySelector("#gallery__cards");
 const photoAddPopup = document.querySelector("#photo-add-popup");
 const photoAddForm = photoAddPopup.querySelector("#photo-popup__form");
 const fullPhotoPopup = document.querySelector("#full-photo-popup");
+const popups = document.querySelectorAll(".popup");
+const popupContainer = document.querySelectorAll(".popup__container");
 
 // Button and others
 const profileEditBtn = document.querySelector("#profile__edit-button");
@@ -155,4 +157,24 @@ photoAddForm.addEventListener("submit", handlePhotoAddSubmit);
 // close the full photo popup
 fullPhotoCloseBtn.addEventListener("click", () => {
   closePopup(fullPhotoPopup);
+});
+
+// close the popup when esc is pressed
+popups.forEach((popup) => {
+  popup.addEventListener("keypress", (evt) => {
+    console.log(evt);
+    // if (evt.key === "Escape") {
+    //   closePopup(popup);
+    // }
+  });
+});
+
+// close the popup when clicked overlay
+popups.forEach((popup) => {
+  popup.addEventListener("mousedown", (evt) => {
+    console.log(evt);
+    // if (evt.key === "Escape") {
+    //   closePopup(popup);
+    // }
+  });
 });
