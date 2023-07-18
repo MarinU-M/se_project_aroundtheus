@@ -10,13 +10,22 @@ function showInputError(formElement, inputElement, options) {
   const errorMessageElement = formElement.querySelector(
     `#${inputElement.id}-error`
   );
-  //   console.log(errorMessageElement);
   inputElement.classList.add(inputErrorClass);
-  errorMessageElement.textcontent = inputElement.validationMessage;
-  //   console.log(errorMessageElement.textcontent);
+  errorMessageElement.textContent = inputElement.validationMessage;
   errorMessageElement.classList.add(errorClass);
 }
-function hideInputError(formElement, inputElement, options) {}
+
+function hideInputError(formElement, inputElement, options) {
+  const inputErrorClass = options.inputErrorClass;
+  const errorClass = options.errorClass;
+  const errorMessageElement = formElement.querySelector(
+    `#${inputElement.id}-error`
+  );
+  inputElement.classList.remove(inputErrorClass);
+  errorMessageElement.textContent = "";
+  errorMessageElement.classList.remove(errorClass);
+}
+
 function checkInputValidity(formElement, inputElement, options) {
   if (!inputElement.validity.valid) {
     showInputError(formElement, inputElement, options);
@@ -25,13 +34,37 @@ function checkInputValidity(formElement, inputElement, options) {
   }
 }
 
+function toggleBtnState(inputElements, submitButtonSelector, options) {
+  const inactiveButtonClass = options.inactiveButtonClass;
+  let foundInvalid = false;
+
+  inputElements.forEach((inputElement) => {
+    if (!inputElement.validity.valid) {
+      foundInvalid = true;
+    }
+  });
+
+  if (foundInvalid) {
+    submitButtonSelector[0].classList.add(inactiveButtonClass);
+    submitButtonSelector.disabled = true;
+  } else {
+    submitButtonSelector[0].classList.remove(inactiveButtonClass);
+    submitButtonSelector.disabled = false;
+  }
+}
+
 function setEventListeners(formElement, options) {
-  const inputSelector = options.inputSelector;
-  const inputElements = Array.from(formElement.querySelectorAll(inputSelector));
+  const inputElements = Array.from(
+    formElement.querySelectorAll(options.inputSelector)
+  );
+  const submitButtonSelector = formElement.querySelectorAll(
+    options.submitButtonSelector
+  );
 
   inputElements.forEach((inputElement) => {
     inputElement.addEventListener("input", (evt) => {
       checkInputValidity(formElement, inputElement, options);
+      toggleBtnState(inputElements, submitButtonSelector, options);
     });
   });
   // look all inputs inside of the forms
