@@ -160,12 +160,14 @@ fullPhotoCloseBtn.addEventListener("click", () => {
 });
 
 // close the popup when esc is pressed
-popups.forEach((popup) => {
-  popup.addEventListener("keydown", (evt) => {
-    if (evt.key === "Escape") {
-      closePopup(popup);
-    }
-  });
+document.addEventListener("keydown", (evt) => {
+  if (evt.key === "Escape") {
+    popups.forEach((popup) => {
+      if (popup.classList.contains("popup_opened")) {
+        closePopup(popup);
+      }
+    });
+  }
 });
 
 // close the popup when clicked overlay
