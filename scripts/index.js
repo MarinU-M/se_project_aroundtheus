@@ -161,20 +161,25 @@ fullPhotoCloseBtn.addEventListener("click", () => {
 
 // close the popup when esc is pressed
 popups.forEach((popup) => {
-  popup.addEventListener("keypress", (evt) => {
+  popup.addEventListener("keydown", (evt) => {
     console.log(evt);
-    // if (evt.key === "Escape") {
-    //   closePopup(popup);
-    // }
+    console.log(evt.key);
+    if (evt.key === "Escape") {
+      closePopup(popup);
+    }
   });
 });
 
 // close the popup when clicked overlay
 popups.forEach((popup) => {
   popup.addEventListener("mousedown", (evt) => {
+    console.log(evt.target.closest(".popup"));
+    console.log(evt.target);
     console.log(evt);
-    // if (evt.key === "Escape") {
-    //   closePopup(popup);
-    // }
+
+    if (!evt.target.closest(".popup")) {
+      closePopup(popup);
+    }
+    evt.stopPropagation();
   });
 });
