@@ -57,28 +57,32 @@
         <button class="popup__close" id="profile_close" type="button"></button>
         <p class="popup__heading">Edit Profile</p>
         <form class="popup__form" id="profile_form">
-          <input
-            type="text"
-            name="name"
-            class="popup__input"
-            placeholder="Name"
-            id="name-input"
-            maxlength="40"
-            minlength="2"
-            required
-          />
-          <span class="popup__error" id="name-input-error"></span>
-          <input
-            type="text"
-            name="description"
-            class="popup__input"
-            placeholder="Description"
-            id="description-input"
-            maxlength="200"
-            minlength="2"
-            required
-          />
-          <span class="popup__error" id="description-input-error"></span>
+          <label class="popup__label">
+            <input
+              type="text"
+              name="name"
+              class="popup__input"
+              placeholder="Name"
+              id="name-input"
+              maxlength="40"
+              minlength="2"
+              required
+            />
+            <span class="popup__error" id="name-input-error"></span>
+          </label>
+          <label class="popup__label">
+            <input
+              type="text"
+              name="description"
+              class="popup__input"
+              placeholder="Description"
+              id="description-input"
+              maxlength="200"
+              minlength="2"
+              required
+            />
+            <span class="popup__error" id="description-input-error"></span>
+          </label>
           <button class="popup__save" type="submit" id="popup__save">
             Save
           </button>
@@ -96,26 +100,30 @@
         ></button>
         <p class="popup__heading">New Place</p>
         <form class="popup__form" id="photo-popup__form">
-          <input
-            type="text"
-            name="title"
-            class="popup__input"
-            placeholder="Title"
-            id="title-input"
-            minlength="1"
-            maxlength="30"
-            required
-          />
-          <span class="popup__error" id="title-input-error"></span>
-          <input
-            type="url"
-            name="image link"
-            class="popup__input"
-            placeholder="Image Link"
-            id="image-link-input"
-            required
-          />
-          <span class="popup__error" id="image-link-input-error"></span>
+          <label class="popup__label">
+            <input
+              type="text"
+              name="title"
+              class="popup__input"
+              placeholder="Title"
+              id="title-input"
+              minlength="1"
+              maxlength="30"
+              required
+            />
+            <span class="popup__error" id="title-input-error"></span>
+          </label>
+          <label class="popup__label">
+            <input
+              type="url"
+              name="image link"
+              class="popup__input"
+              placeholder="Image Link"
+              id="image-link-input"
+              required
+            />
+            <span class="popup__error" id="image-link-input-error"></span>
+          </label>
           <button class="popup__save" type="submit" id="popup__save">
             Create
           </button>
