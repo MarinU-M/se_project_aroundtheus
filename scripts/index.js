@@ -162,8 +162,6 @@ fullPhotoCloseBtn.addEventListener("click", () => {
 // close the popup when esc is pressed
 popups.forEach((popup) => {
   popup.addEventListener("keydown", (evt) => {
-    console.log(evt);
-    console.log(evt.key);
     if (evt.key === "Escape") {
       closePopup(popup);
     }
@@ -173,13 +171,8 @@ popups.forEach((popup) => {
 // close the popup when clicked overlay
 popups.forEach((popup) => {
   popup.addEventListener("mousedown", (evt) => {
-    console.log(evt.target.closest(".popup"));
-    console.log(evt.target);
-    console.log(evt);
-
-    if (!evt.target.closest(".popup")) {
+    if (evt.target.classList.contains("popup_opened")) {
       closePopup(popup);
     }
-    evt.stopPropagation();
   });
 });
