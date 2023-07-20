@@ -38,16 +38,6 @@ function hasInvalidInput(inputElements) {
   return !inputElements.every((inputElement) => inputElement.validity.valid);
 }
 
-function disableBtn(submitButton, inactiveButtonClass) {
-  submitButton.classList.add(inactiveButtonClass);
-  return (submitButton.disabled = true);
-}
-
-function enableBtn(submitButton, inactiveButtonClass) {
-  submitButton.classList.remove(inactiveButtonClass);
-  return (submitButton.disabled = false);
-}
-
 function toggleBtnState(inputElements, submitButton, options) {
   const inactiveButtonClass = options.inactiveButtonClass;
 
@@ -65,7 +55,7 @@ function setEventListeners(formElement, options) {
   );
   const submitButton = formElement.querySelector(options.submitButtonSelector);
   toggleBtnState(inputElements, submitButton, options);
-  // submitButtonSelector.disabled();
+  submitButton.disabled = true;
   inputElements.forEach((inputElement) => {
     inputElement.addEventListener("input", (evt) => {
       checkInputValidity(formElement, inputElement, options);

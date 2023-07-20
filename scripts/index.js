@@ -38,7 +38,6 @@ const photoAddPopup = document.querySelector("#photo-add-popup");
 const photoAddForm = document.forms["photo_form"];
 const fullPhotoPopup = document.querySelector("#full-photo-popup");
 const popups = document.querySelectorAll(".popup");
-const popupContainer = document.querySelectorAll(".popup__container");
 
 // Button and others
 const profileEditBtn = document.querySelector("#profile__edit-button");
@@ -50,9 +49,6 @@ const photoAddCloseBtn = photoAddPopup.querySelector("#photo-add-close");
 const fullPhotoCloseBtn = fullPhotoPopup.querySelector("#full-photo-close");
 const previewPhoto = fullPhotoPopup.querySelector(".popup__full-photo");
 const previewTitle = fullPhotoPopup.querySelector(".popup__title");
-const submitBtn = document.querySelector(".popup__save");
-const disableSubmitBtn = document.querySelector(".popup__save_disabled");
-const openedPopup = document.querySelector(".popup_opened");
 
 // From inputs
 const profileNameInput = profileEditPopup.querySelector("#name-input");
@@ -104,13 +100,14 @@ function handleProfileEditSubmit(evt) {
 
 function handlePhotoAddSubmit(evt) {
   evt.preventDefault();
-  let name = photoTitleInput.value;
-  let link = photoLinkInput.value;
+  const name = photoTitleInput.value;
+  const link = photoLinkInput.value;
+  const submitBtn = photoAddPopup.querySelector(".popup__save");
   renderCard({ name, link }, cardList);
   closePopup(photoAddPopup);
   photoAddForm.reset();
   submitBtn.disabled = true;
-  submitBtn.classList.add(disableSubmitBtn);
+  submitBtn.classList.add("popup__save_disabled");
 }
 
 // close the popup when esc is pressed
