@@ -51,6 +51,7 @@ const fullPhotoCloseBtn = fullPhotoPopup.querySelector("#full-photo-close");
 const previewPhoto = fullPhotoPopup.querySelector(".popup__full-photo");
 const previewTitle = fullPhotoPopup.querySelector(".popup__title");
 const submitBtnSelector = document.querySelectorAll(".popup__save");
+const openedPopup = document.querySelector(".popup_opened");
 
 // From inputs
 const profileNameInput = profileEditPopup.querySelector("#name-input");
@@ -62,15 +63,6 @@ const photoLinkInput = photoAddPopup.querySelector("#image-link-input");
 /* ------------------ */
 /*      Functions     */
 /* ------------------ */
-
-function openPopup(popup) {
-  popup.classList.add("popup_opened");
-}
-
-function closePopup(popup) {
-  popup.classList.remove("popup_opened");
-}
-
 function getCardElement(cardData) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImageElement = cardElement.querySelector("#card__image");
@@ -118,6 +110,30 @@ function handlePhotoAddSubmit(evt) {
   // submitBtnSelector.disabled();
 }
 
+// close the popup when esc is pressed
+function closeByEscape(evt) {
+  if (evt.key === "Escape") {
+    popups.forEach((popup) => {
+      const openedPopup = popup.classList.contains("popup_opened");
+      if (openedPopup) {
+        closePopup(popup);
+      }
+    });
+  }
+}
+
+// open popup and add esc event listener
+function openPopup(popup) {
+  popup.classList.add("popup_opened");
+  document.addEventListener("keydown", closeByEscape);
+}
+
+// close popup and remove esc event listener
+function closePopup(popup) {
+  popup.classList.remove("popup_opened");
+  document.removeEventListener("keydown", closeByEscape);
+}
+
 /* ----------------------- */
 /*      Event Listner      */
 /* ----------------------- */
@@ -155,15 +171,4 @@ popups.forEach((popup) => {
       closePopup(popup);
     }
   });
-});
-
-// close the popup when esc is pressed
-document.addEventListener("keydown", (evt) => {
-  if (evt.key === "Escape") {
-    popups.forEach((popup) => {
-      if (popup.classList.contains("popup_opened")) {
-        closePopup(popup);
-      }
-    });
-  }
 });
