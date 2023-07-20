@@ -38,40 +38,38 @@ function hasInvalidInput(inputElements) {
   return !inputElements.every((inputElement) => inputElement.validity.valid);
 }
 
-function disableBtn(submitButtonSelector, inactiveButtonClass) {
-  submitButtonSelector[0].classList.add(inactiveButtonClass);
-  return (submitButtonSelector.disabled = true);
+function disableBtn(submitButton, inactiveButtonClass) {
+  submitButton.classList.add(inactiveButtonClass);
+  return (submitButton.disabled = true);
 }
 
-function enableBtn(submitButtonSelector, inactiveButtonClass) {
-  submitButtonSelector[0].classList.remove(inactiveButtonClass);
-  return (submitButtonSelector.disabled = false);
+function enableBtn(submitButton, inactiveButtonClass) {
+  submitButton.classList.remove(inactiveButtonClass);
+  return (submitButton.disabled = false);
 }
 
-function toggleBtnState(inputElements, submitButtonSelector, options) {
+function toggleBtnState(inputElements, submitButton, options) {
   const inactiveButtonClass = options.inactiveButtonClass;
 
   if (hasInvalidInput(inputElements)) {
-    submitButtonSelector[0].classList.add(inactiveButtonClass);
-    return (submitButtonSelector.disabled = true);
+    submitButton.classList.add(inactiveButtonClass);
+    return (submitButton.disabled = true);
   }
-  submitButtonSelector[0].classList.remove(inactiveButtonClass);
-  submitButtonSelector.disabled = false;
+  submitButton.classList.remove(inactiveButtonClass);
+  submitButton.disabled = false;
 }
 
 function setEventListeners(formElement, options) {
   const inputElements = Array.from(
     formElement.querySelectorAll(options.inputSelector)
   );
-  const submitButtonSelector = formElement.querySelectorAll(
-    options.submitButtonSelector
-  );
-  toggleBtnState(inputElements, submitButtonSelector, options);
+  const submitButton = formElement.querySelector(options.submitButtonSelector);
+  toggleBtnState(inputElements, submitButton, options);
   // submitButtonSelector.disabled();
   inputElements.forEach((inputElement) => {
     inputElement.addEventListener("input", (evt) => {
       checkInputValidity(formElement, inputElement, options);
-      toggleBtnState(inputElements, submitButtonSelector, options);
+      toggleBtnState(inputElements, submitButton, options);
     });
   });
   // look all inputs inside of the forms

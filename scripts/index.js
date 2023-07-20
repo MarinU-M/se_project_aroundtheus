@@ -50,7 +50,8 @@ const photoAddCloseBtn = photoAddPopup.querySelector("#photo-add-close");
 const fullPhotoCloseBtn = fullPhotoPopup.querySelector("#full-photo-close");
 const previewPhoto = fullPhotoPopup.querySelector(".popup__full-photo");
 const previewTitle = fullPhotoPopup.querySelector(".popup__title");
-const submitBtnSelector = document.querySelectorAll(".popup__save");
+const submitBtn = document.querySelector(".popup__save");
+const disableSubmitBtn = document.querySelector(".popup__save_disabled");
 const openedPopup = document.querySelector(".popup_opened");
 
 // From inputs
@@ -89,6 +90,11 @@ function getCardElement(cardData) {
   return cardElement;
 }
 
+function renderCard(cardData, cardList) {
+  const cardElement = getCardElement(cardData);
+  cardList.prepend(cardElement);
+}
+
 function handleProfileEditSubmit(evt) {
   evt.preventDefault();
   profileName.innerText = profileNameInput.value;
@@ -96,18 +102,15 @@ function handleProfileEditSubmit(evt) {
   closePopup(profileEditPopup);
 }
 
-function renderCard(cardData, cardList) {
-  const cardElement = getCardElement(cardData);
-  cardList.prepend(cardElement);
-}
-
 function handlePhotoAddSubmit(evt) {
   evt.preventDefault();
-  const name = photoTitleInput.value;
-  const link = photoLinkInput.value;
+  let name = photoTitleInput.value;
+  let link = photoLinkInput.value;
   renderCard({ name, link }, cardList);
   closePopup(photoAddPopup);
-  // submitBtnSelector.disabled();
+  photoAddForm.reset();
+  submitBtn.disabled = true;
+  submitBtn.classList.add(disableSubmitBtn);
 }
 
 // close the popup when esc is pressed
