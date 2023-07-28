@@ -16,7 +16,7 @@
   border-top-right-radius: 3%;
 }
 
-.card__delete {
+.card__delete-button {
   background: transparent center no-repeat;
   background-image: url(../images/Trash.svg);
   width: 18px;
@@ -28,7 +28,7 @@
   cursor: pointer;
 }
 
-.card__delete:hover {
+.card__delete-button:hover {
   opacity: 60%;
 }
 

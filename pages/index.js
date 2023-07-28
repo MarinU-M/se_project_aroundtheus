@@ -1,3 +1,5 @@
+import Card from "../components/Card.js";
+
 /* ------------------ */
 /*      Elements      */
 /* ------------------ */
@@ -28,6 +30,13 @@ const initialCards = [
   },
 ];
 
+const cardData = {
+  name: "Yosemite Valley",
+  link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
+};
+const card = new Card(cardData, "#card-template");
+card.getView();
+
 // Wrapper
 const profileEditPopup = document.querySelector("#profile-popup");
 const profileEditForm = document.forms["profile_form"];
@@ -43,10 +52,10 @@ const popups = document.querySelectorAll(".popup");
 const profileEditBtn = document.querySelector("#profile__edit-button");
 const profileName = document.querySelector("#profile__name");
 const profileDescription = document.querySelector("#profile__description");
-const profileEditCloseBtn = profileEditPopup.querySelector("#profile_close");
+// const profileEditCloseBtn = profileEditPopup.querySelector("#profile_close");
 const photoAddBtn = document.querySelector("#profile__add-button");
-const photoAddCloseBtn = photoAddPopup.querySelector("#photo-add-close");
-const fullPhotoCloseBtn = fullPhotoPopup.querySelector("#full-photo-close");
+// const photoAddCloseBtn = photoAddPopup.querySelector("#photo-add-close");
+// const fullPhotoCloseBtn = fullPhotoPopup.querySelector("#full-photo-close");
 const previewPhoto = fullPhotoPopup.querySelector(".popup__full-photo");
 const previewTitle = fullPhotoPopup.querySelector(".popup__title");
 
@@ -65,14 +74,14 @@ function getCardElement(cardData) {
   const cardImageElement = cardElement.querySelector("#card__image");
   const cardTitleElement = cardElement.querySelector("#card__title");
   const cardLikeBtn = cardElement.querySelector("#card__like-button");
-  const cardDeleteBtn = cardElement.querySelector("#card__delete");
+  const cardDeleteBtn = cardElement.querySelector("#card__delete-button");
 
-  cardLikeBtn.addEventListener("click", () => {
-    cardLikeBtn.classList.toggle("card__like-button_active");
-  });
-  cardDeleteBtn.addEventListener("click", () => {
-    cardElement.remove();
-  });
+  // cardLikeBtn.addEventListener("click", () => {
+  //   cardLikeBtn.classList.toggle("card__like-button_active");
+  // });
+  // cardDeleteBtn.addEventListener("click", () => {
+  //   cardElement.remove();
+  // });
   cardImageElement.addEventListener("click", () => {
     previewPhoto.src = cardData.link;
     previewPhoto.alt = cardData.name;
