@@ -1,4 +1,5 @@
 import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
 
 /* ------------------ */
 /*      Elements      */
@@ -30,8 +31,13 @@ const initialCards = [
   },
 ];
 
-const card = new Card(initialCards, "#card-template");
-card.generateCard();
+const config = {
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__save",
+  inactiveButtonClass: "popup__save_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+};
 
 // Wrapper
 const profileEditPopup = document.querySelector("#profile-popup");
@@ -65,36 +71,36 @@ const photoLinkInput = photoAddPopup.querySelector("#image-link-input");
 /* ------------------ */
 /*      Functions     */
 /* ------------------ */
-// function getCardElement(cardData) {
-//   const cardElement = cardTemplate.cloneNode(true);
-//   const cardImageElement = cardElement.querySelector("#card__image");
-//   const cardTitleElement = cardElement.querySelector("#card__title");
-//   const cardLikeBtn = cardElement.querySelector("#card__like-button");
-//   const cardDeleteBtn = cardElement.querySelector("#card__delete-button");
+function getCardElement(cardData) {
+  const cardElement = cardTemplate.cloneNode(true);
+  const cardImageElement = cardElement.querySelector("#card__image");
+  const cardTitleElement = cardElement.querySelector("#card__title");
+  const cardLikeBtn = cardElement.querySelector("#card__like-button");
+  const cardDeleteBtn = cardElement.querySelector("#card__delete-button");
 
-// cardLikeBtn.addEventListener("click", () => {
-//   cardLikeBtn.classList.toggle("card__like-button_active");
-// });
-// cardDeleteBtn.addEventListener("click", () => {
-//   cardElement.remove();
-// });
-// cardImageElement.addEventListener("click", () => {
-//   previewPhoto.src = cardData.link;
-//   previewPhoto.alt = cardData.name;
-//   previewTitle.innerText = cardData.name;
-//   openPopup(fullPhotoPopup);
-// });
+  cardLikeBtn.addEventListener("click", () => {
+    cardLikeBtn.classList.toggle("card__like-button_active");
+  });
+  cardDeleteBtn.addEventListener("click", () => {
+    cardElement.remove();
+  });
+  cardImageElement.addEventListener("click", () => {
+    previewPhoto.src = cardData.link;
+    previewPhoto.alt = cardData.name;
+    previewTitle.innerText = cardData.name;
+    openPopup(fullPhotoPopup);
+  });
 
-//   cardImageElement.src = cardData.link;
-//   cardImageElement.alt = cardData.name;
-//   cardTitleElement.innerText = cardData.name;
-//   return cardElement;
-// }
+  cardImageElement.src = cardData.link;
+  cardImageElement.alt = cardData.name;
+  cardTitleElement.innerText = cardData.name;
+  return cardElement;
+}
 
 function renderCard(cardData, cardList) {
-  // const cardElement = getCardElement(cardData);
-  const cardElement = new Card(cardData, "#card-template");
-  card.generateCard();
+  const cardElement = getCardElement(cardData);
+  // const cardElement = new Card(cardData, "#card-template");
+  // cardElement.generateCard();
   cardList.prepend(cardElement);
 }
 
@@ -146,9 +152,9 @@ function closePopup(popup) {
 /* ----------------------- */
 // render the cards
 initialCards.forEach((cardData) => {
-  const cardElement = new Card(cardData, "#card-template");
-  card.generateCard();
-  // const cardElement = getCardElement(cardData);
+  // const cardElement = new Card(cardData, "#card-template");
+  // card.generateCard();
+  const cardElement = getCardElement(cardData);
   cardList.append(cardElement);
 });
 
@@ -181,3 +187,13 @@ popups.forEach((popup) => {
     }
   });
 });
+
+/* ----------------------- */
+/*      Event Handler      */
+/* ----------------------- */
+
+// enable form validator
+const editFormValidator = new FormValidator(config, profileEditForm);
+const addFormValidator = new FormValidator(config, photoAddForm);
+editFormValidator.enableValidation();
+addFormValidator.enableValidation();
