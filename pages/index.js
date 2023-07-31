@@ -1,3 +1,4 @@
+import { popups, openPopup, closePopup } from "../utils/utils.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 
@@ -42,24 +43,15 @@ const config = {
 // Wrapper
 const profileEditPopup = document.querySelector("#profile-popup");
 const profileEditForm = document.forms["profile_form"];
-const cardTemplate =
-  document.querySelector("#card-template").content.firstElementChild;
 const cardList = document.querySelector("#gallery__cards");
 const photoAddPopup = document.querySelector("#photo-add-popup");
 const photoAddForm = document.forms["photo_form"];
-const fullPhotoPopup = document.querySelector("#full-photo-popup");
-const popups = document.querySelectorAll(".popup");
 
 // Button and others
 const profileEditBtn = document.querySelector("#profile__edit-button");
 const profileName = document.querySelector("#profile__name");
 const profileDescription = document.querySelector("#profile__description");
-// const profileEditCloseBtn = profileEditPopup.querySelector("#profile_close");
 const photoAddBtn = document.querySelector("#profile__add-button");
-// const photoAddCloseBtn = photoAddPopup.querySelector("#photo-add-close");
-// const fullPhotoCloseBtn = fullPhotoPopup.querySelector("#full-photo-close");
-const previewPhoto = fullPhotoPopup.querySelector(".popup__full-photo");
-const previewTitle = fullPhotoPopup.querySelector(".popup__title");
 
 // From inputs
 const profileNameInput = profileEditPopup.querySelector("#name-input");
@@ -71,37 +63,10 @@ const photoLinkInput = photoAddPopup.querySelector("#image-link-input");
 /* ------------------ */
 /*      Functions     */
 /* ------------------ */
-// function getCardElement(cardData) {
-//   const cardElement = cardTemplate.cloneNode(true);
-//   const cardImageElement = cardElement.querySelector("#card__image");
-//   const cardTitleElement = cardElement.querySelector("#card__title");
-//   const cardLikeBtn = cardElement.querySelector("#card__like-button");
-//   const cardDeleteBtn = cardElement.querySelector("#card__delete-button");
-
-//   cardLikeBtn.addEventListener("click", () => {
-//     cardLikeBtn.classList.toggle("card__like-button_active");
-//   });
-//   cardDeleteBtn.addEventListener("click", () => {
-//     cardElement.remove();
-//   });
-//   cardImageElement.addEventListener("click", () => {
-//     previewPhoto.src = cardData.link;
-//     previewPhoto.alt = cardData.name;
-//     previewTitle.innerText = cardData.name;
-//     openPopup(fullPhotoPopup);
-//   });
-
-//   cardImageElement.src = cardData.link;
-//   cardImageElement.alt = cardData.name;
-//   cardTitleElement.innerText = cardData.name;
-//   return cardElement;
-// }
 
 function renderCard(cardData, cardList) {
-  // const cardElement = getCardElement(cardData);
-  const cardElement = new Card(cardData, cardTemplate);
+  const cardElement = new Card(cardData, "#card-template");
   cardList.prepend(cardElement.getView());
-  // cardList.prepend(cardElement);
 }
 
 function handleProfileEditSubmit(evt) {
@@ -113,38 +78,16 @@ function handleProfileEditSubmit(evt) {
 
 function handlePhotoAddSubmit(evt) {
   evt.preventDefault();
-  const name = photoTitleInput.value;
-  const link = photoLinkInput.value;
+  const cardData = {
+    name: photoTitleInput.value,
+    link: photoLinkInput.value,
+  };
   const submitBtn = photoAddPopup.querySelector(".popup__save");
-  renderCard({ name, link }, cardList);
+  renderCard(cardData, cardList);
   closePopup(photoAddPopup);
   photoAddForm.reset();
   submitBtn.disabled = true;
   submitBtn.classList.add("popup__save_disabled");
-}
-
-// close the popup when esc is pressed
-function closeByEscape(evt) {
-  if (evt.key === "Escape") {
-    popups.forEach((popup) => {
-      const openedPopup = popup.classList.contains("popup_opened");
-      if (openedPopup) {
-        closePopup(popup);
-      }
-    });
-  }
-}
-
-// open popup and add esc event listener
-function openPopup(popup) {
-  popup.classList.add("popup_opened");
-  document.addEventListener("keydown", closeByEscape);
-}
-
-// close popup and remove esc event listener
-function closePopup(popup) {
-  popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", closeByEscape);
 }
 
 /* ----------------------- */
@@ -154,9 +97,7 @@ function closePopup(popup) {
 initialCards.forEach((cardData) => {
   const cardElement = new Card(cardData, "#card-template");
   console.log(cardElement);
-  cardElement.getView();
-  // const cardElement = getCardElement(cardData);
-  cardList.append(cardElement);
+  cardList.append(cardElement.getView());
 });
 
 // open the profile edit popup

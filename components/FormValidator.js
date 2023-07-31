@@ -54,7 +54,7 @@ export default class FormValidator {
     const submitButton = this._formElement.querySelector(
       this._submitButtonSelector
     );
-    // toggleBtnState(inputElements, submitButton, options);
+    this.toggleBtnState(inputElements, submitButton);
     // submitButton.disabled = true;
     inputElements.forEach((inputElement) => {
       inputElement.addEventListener("input", (evt) => {
