@@ -78,7 +78,7 @@ export default class Card {
       .cloneNode(true);
   }
 
-  getview() {
+  getView() {
     this._element = this._getTemplate();
     // set event listener
     this._setEventListeners();
