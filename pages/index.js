@@ -64,9 +64,14 @@ const photoLinkInput = photoAddPopup.querySelector("#image-link-input");
 /*      Functions     */
 /* ------------------ */
 
+function createCard(cardData, cardList) {
+  const cardElement = new Card(cardData, cardList);
+  return cardElement.getView();
+}
+
 function renderCard(cardData, cardList) {
-  const cardElement = new Card(cardData, "#card-template");
-  cardList.prepend(cardElement.getView());
+  const cardElement = createCard(cardData, "#card-template");
+  cardList.prepend(cardElement);
 }
 
 function handleProfileEditSubmit(evt) {
@@ -86,8 +91,9 @@ function handlePhotoAddSubmit(evt) {
   renderCard(cardData, cardList);
   closePopup(photoAddPopup);
   photoAddForm.reset();
-  submitBtn.disabled = true;
-  submitBtn.classList.add("popup__save_disabled");
+  // submitBtn.disabled = true;
+  addFormValidator.toggleBtnState();
+  // submitBtn.classList.add("popup__save_disabled");
 }
 
 /* ----------------------- */
@@ -95,9 +101,8 @@ function handlePhotoAddSubmit(evt) {
 /* ----------------------- */
 // render the cards
 initialCards.forEach((cardData) => {
-  const cardElement = new Card(cardData, "#card-template");
-  console.log(cardElement);
-  cardList.append(cardElement.getView());
+  const cardElement = createCard(cardData, "#card-template");
+  cardList.append(cardElement);
 });
 
 // open the profile edit popup
