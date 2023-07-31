@@ -153,6 +153,7 @@ function closePopup(popup) {
 // render the cards
 initialCards.forEach((cardData) => {
   const cardElement = new Card(cardData, "#card-template");
+  console.log(cardElement);
   cardElement.getView();
   // const cardElement = getCardElement(cardData);
   cardList.append(cardElement);
