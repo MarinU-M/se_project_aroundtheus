@@ -1,5 +1,9 @@
 import { openPopup } from "../utils/utils.js";
 
+const fullPhotoPopup = document.querySelector("#full-photo-popup");
+const previewPhoto = fullPhotoPopup.querySelector(".popup__full-photo");
+const previewTitle = fullPhotoPopup.querySelector(".popup__title");
+
 export default class Card {
   constructor({ name, link }, cardSelector) {
     this._name = name;
@@ -17,10 +21,6 @@ export default class Card {
   }
 
   _handlePhotoPopup() {
-    const fullPhotoPopup = document.querySelector("#full-photo-popup");
-    const previewPhoto = fullPhotoPopup.querySelector(".popup__full-photo");
-    const previewTitle = fullPhotoPopup.querySelector(".popup__title");
-
     previewPhoto.src = this._link;
     previewPhoto.alt = this._name;
     previewTitle.innerText = this._name;

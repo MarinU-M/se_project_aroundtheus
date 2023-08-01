@@ -87,7 +87,7 @@ function handlePhotoAddSubmit(evt) {
     name: photoTitleInput.value,
     link: photoLinkInput.value,
   };
-  const submitBtn = photoAddPopup.querySelector(".popup__save");
+  // const submitBtn = photoAddPopup.querySelector(".popup__save");
   renderCard(cardData, cardList);
   closePopup(photoAddPopup);
   photoAddForm.reset();
