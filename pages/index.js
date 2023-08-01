@@ -87,13 +87,9 @@ function handlePhotoAddSubmit(evt) {
     name: photoTitleInput.value,
     link: photoLinkInput.value,
   };
-  // const submitBtn = photoAddPopup.querySelector(".popup__save");
   renderCard(cardData, cardList);
   closePopup(photoAddPopup);
   photoAddForm.reset();
-  // submitBtn.disabled = true;
-  addFormValidator.toggleBtnState();
-  // submitBtn.classList.add("popup__save_disabled");
 }
 
 /* ----------------------- */
@@ -109,6 +105,7 @@ initialCards.forEach((cardData) => {
 profileEditBtn.addEventListener("click", function () {
   profileNameInput.value = profileName.innerText;
   profileDescriptionInput.value = profileDescription.innerText;
+  editFormValidator.resetValidation()
   openPopup(profileEditPopup);
 });
 
@@ -117,6 +114,7 @@ profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 
 // open the photo add popup
 photoAddBtn.addEventListener("click", function () {
+  addFormValidator.resetValidation();
   openPopup(photoAddPopup);
 });
 
