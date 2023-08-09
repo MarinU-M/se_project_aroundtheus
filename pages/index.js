@@ -1,6 +1,7 @@
 import { popups, openPopup, closePopup } from "../utils/utils.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
+import Section from "../components/Section.js";
 
 /* ------------------ */
 /*      Elements      */
@@ -69,10 +70,10 @@ function createCard(cardData, cardList) {
   return cardElement.getView();
 }
 
-function renderCard(cardData, cardList) {
-  const cardElement = createCard(cardData, "#card-template");
-  cardList.prepend(cardElement);
-}
+// function renderCard(cardData, cardList) {
+//   const cardElement = createCard(cardData, "#card-template");
+//   cardList.prepend(cardElement);
+// }
 
 function handleProfileEditSubmit(evt) {
   evt.preventDefault();
@@ -87,7 +88,17 @@ function handlePhotoAddSubmit(evt) {
     name: photoTitleInput.value,
     link: photoLinkInput.value,
   };
-  renderCard(cardData, cardList);
+  const renderCard = new Section(
+    {
+      items: cardList,
+      renderer: () => {
+        createCard(cardData, cardList);
+      },
+    },
+    "#card-template"
+  );
+  renderCard.renderItems();
+  // renderCard(cardData, cardList);
   closePopup(photoAddPopup);
   photoAddForm.reset();
 }
@@ -100,12 +111,22 @@ initialCards.forEach((cardData) => {
   const cardElement = createCard(cardData, "#card-template");
   cardList.append(cardElement);
 });
+// const renderInitialCards = new Section(
+//   {
+//     items: initialCards,
+//     renderer: () => {
+//       createCard(item, cardList);
+//     },
+//   },
+//   "#card-template"
+// );
+// renderInitialCards.renderItems();
 
 // open the profile edit popup
 profileEditBtn.addEventListener("click", function () {
   profileNameInput.value = profileName.innerText;
   profileDescriptionInput.value = profileDescription.innerText;
-  editFormValidator.resetValidation()
+  editFormValidator.resetValidation();
   openPopup(profileEditPopup);
 });
 
