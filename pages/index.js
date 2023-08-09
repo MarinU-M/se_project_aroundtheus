@@ -70,8 +70,8 @@ function createCard(cardData, cardTemplate) {
   return cardElement.getView();
 }
 
-function renderCard(cardData, cardList) {
-  const cardElement = createCard(cardData, "#card-template");
+function renderCard(cardData, cardTemplate) {
+  const cardElement = createCard(cardData, cardTemplate);
   cardList.prepend(cardElement);
 }
 
@@ -88,17 +88,18 @@ function handlePhotoAddSubmit(evt) {
     name: photoTitleInput.value,
     link: photoLinkInput.value,
   };
-  // const renderCard = new Section(
-  //   {
-  //     items: cardList,
-  //     renderer: () => {
-  //       createCard(cardData, cardList);
-  //     },
-  //   },
-  //   "#card-template"
-  // );
-  // renderCard.renderItems();
-  renderCard(cardData, cardList);
+  const renderCard = new Section(
+    {
+      items: cardData,
+      renderer: () => {
+        const newCard = createCard(cardData, "#card-template");
+        renderCard.addItem(newCard);
+      },
+    },
+    "#gallery__cards"
+  );
+  renderCard.renderItems();
+  // renderCard(cardData, cardList);
   closePopup(photoAddPopup);
   photoAddForm.reset();
 }
@@ -107,10 +108,6 @@ function handlePhotoAddSubmit(evt) {
 /*      Event Listner      */
 /* ----------------------- */
 // render the cards
-// initialCards.forEach((cardData) => {
-//   const cardElement = createCard(cardData, "#card-template");
-//   cardList.append(cardElement);
-// });
 const renderInitialCards = new Section(
   {
     items: initialCards,
