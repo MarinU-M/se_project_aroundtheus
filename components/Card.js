@@ -55,7 +55,6 @@ export default class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._cardTitle.textContent = this._name;
-    console.log(this._element);
     // return the card
     return this._element;
   }
