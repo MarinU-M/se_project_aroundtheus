@@ -2,6 +2,7 @@ export default class Popup {
   constructor(popupSelector) {
     // The constructor has a single parameter, which is the popup selector.
     this._popupEl = document.querySelector(popupSelector);
+    console.log(this._popupEl);
   }
 
   // open() and close() that will open and close the popup.

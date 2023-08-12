@@ -109,11 +109,12 @@ function handlePhotoAddSubmit(evt) {
 /* ----------------------- */
 /*      Event Listner      */
 /* ----------------------- */
-const editPopup = new PopupWithForm(".profile-popup", () => {
+const editPopup = new Popup(".profile-popup", () => {
   handleProfileEditSubmit();
 });
-const addPopup = new PopupWithForm(".photo-add-popup");
-const photoPopup = new PopupWithImage(".full-photo-popup");
+console.log(editPopup);
+// const addPopup = new PopupWithForm(".photo-add-popup");
+// const photoPopup = new PopupWithImage(".full-photo-popup");
 
 // open the profile edit popup
 profileEditBtn.addEventListener("click", () => {
