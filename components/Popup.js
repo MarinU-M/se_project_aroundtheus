@@ -1,19 +1,42 @@
 export default class Popup {
   constructor(popupSelector) {
     // The constructor has a single parameter, which is the popup selector.
-    this._popupSelector = document.querySelector(popupSelector);
+    this._popupEl = document.querySelector(popupSelector);
   }
 
-  //   It stores the public methods open() and close() that will open and close the popup.
-  open() {}
+  // open() and close() that will open and close the popup.
+  open() {
+    this._popupEl.classList.add("popup_opened");
+    document.addEventListener("keydown", (evt) => {
+      this._closeByEscape(evt);
+    });
+  }
 
-  close() {}
+  close() {
+    this._popupEl.classList.remove("popup_opened");
+    document.removeEventListener("keydown", (evt) => {
+      this._closeByEscape(evt);
+    });
+  }
 
-  //   It stores a private method named _handleEscClose() that stores the logic for closing the popup by pressing the Esc key.
-  _handleEscClose() {}
+  // _handleEscClose() for closing the popup by pressing the Esc key.
+  _closeByEscape(evt) {
+    if (evt.key === "Escape") {
+      if (this._popupEl.classList.contains("popup_opened")) {
+        this.close();
+      }
+    }
+  }
 
-  //   It stores a public method named setEventListeners() that adds a click event listener to the close icon of the popup. The modal window should also close when users click on the shaded area around the form.
+  // setEventListeners() that adds a event listener to close the popup when clicked overlay or close button
   setEventListeners() {
-    addEventListener("click");
+    this._popupEl.addEventListener("mousedown", (evt) => {
+      if (evt.target.classList.contains("popup_opened")) {
+        this.close();
+      }
+      if (evt.target.classList.contains("popup__close")) {
+        this.close();
+      }
+    });
   }
 }
