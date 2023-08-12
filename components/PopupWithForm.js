@@ -4,8 +4,7 @@ export default class PopupWithForm extends Popup {
   //   the popup selector, and a callback function which PopupWithForm calls when the form’s submit event fires
   constructor(popupSelector, handleFormSubmit) {
     super(popupSelector);
-    console.log(this._popupEl);
-    this._popupForm = this._popupEl.querySelector("#popup_form");
+    this._popupForm = this._popupEl.querySelector(".popup__form");
     this._handleFormSubmit = handleFormSubmit;
   }
 
@@ -18,7 +17,7 @@ export default class PopupWithForm extends Popup {
     this._inputs.forEach((input) => {
       inputObj[input.name] = input.value;
     });
-    console.log(this._inputs);
+
     console.log(inputObj);
     return inputObj;
   }
@@ -26,9 +25,9 @@ export default class PopupWithForm extends Popup {
   //   add the submit event handler to the form and the click event listener to the close icon
   setEventListeners() {
     this._popupForm.addEventListener("submit", () => {
+      this._handleFormSubmit(this._getInputValues());
       this.close();
     });
-    super.setEventListeners();
   }
 
   //   to reset the form once the popup is closed.

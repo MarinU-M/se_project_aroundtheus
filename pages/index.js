@@ -77,8 +77,9 @@ function renderCard(cardData, cardTemplate) {
   cardList.prepend(cardElement);
 }
 
-function handleProfileEditSubmit(evt) {
-  evt.preventDefault();
+function handleProfileEditSubmit(obj) {
+  // evt.preventDefault();
+  console.log(obj);
   profileName.innerText = profileNameInput.value;
   profileDescription.innerText = profileDescriptionInput.value;
   closePopup(profileEditPopup);
@@ -101,7 +102,7 @@ function handlePhotoAddSubmit(evt) {
   //   "#gallery__cards"
   // );
   // renderCard.renderItems();
-  renderCard(cardData, cardList);
+  renderCard(cardData, "#card-template");
   closePopup(photoAddPopup);
   photoAddForm.reset();
 }
@@ -109,10 +110,9 @@ function handlePhotoAddSubmit(evt) {
 /* ----------------------- */
 /*      Event Listner      */
 /* ----------------------- */
-const editPopup = new Popup(".profile-popup", () => {
+const editPopup = new PopupWithForm("#profile-popup", () => {
   handleProfileEditSubmit();
 });
-console.log(editPopup);
 // const addPopup = new PopupWithForm(".photo-add-popup");
 // const photoPopup = new PopupWithImage(".full-photo-popup");
 
@@ -120,7 +120,6 @@ console.log(editPopup);
 profileEditBtn.addEventListener("click", () => {
   editPopup.open();
   editPopup.setEventListeners();
-  editPopup._getInputValues();
   profileNameInput.value = profileName.innerText;
   profileDescriptionInput.value = profileDescription.innerText;
   editFormValidator.resetValidation();
