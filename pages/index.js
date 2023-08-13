@@ -68,10 +68,17 @@ function createCard(cardData, cardTemplate) {
   return cardElement.getView();
 }
 
-const userInput = new UserInfo("#profile__name", "#profile__description");
+const userInfo = new UserInfo("#name-input", "#description-input");
+
 function handleProfileEditSubmit(obj) {
-  profileName.innerText = obj.name;
-  profileDescription.innerText = obj.description;
+  const { name, description } = userInfo.getUserInfo();
+
+  console.log({ name, description });
+  userInfo.setUserInfo(name, description);
+  profileName.innerText = name;
+  profileDescription.innerText = description;
+
+  editPopup.close();
 }
 
 function handlePhotoAddSubmit(obj) {
@@ -79,9 +86,8 @@ function handlePhotoAddSubmit(obj) {
     name: obj.title,
     link: obj.image,
   };
-  console.log(cardData);
-  section.addItem(cardData);
-  // renderCard(cardData, "#card-template");
+  const newCard = createCard(cardData, "#card-template");
+  section.addItem(newCard);
 }
 
 /* ----------------------- */
@@ -94,9 +100,9 @@ const addFormValidator = new FormValidator(config, photoAddForm);
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
-// Section instance for initialcards
-const editPopup = new PopupWithForm("#profile-popup", (obj) => {
-  handleProfileEditSubmit(obj);
+// Popup instance for each form
+const editPopup = new PopupWithForm("#profile-popup", () => {
+  handleProfileEditSubmit();
 });
 
 const addPopup = new PopupWithForm("#photo-add-popup", (obj) => {
@@ -105,6 +111,7 @@ const addPopup = new PopupWithForm("#photo-add-popup", (obj) => {
 
 const photoPopup = new PopupWithImage("#full-photo-popup");
 
+// render initialcards
 const section = new Section(
   {
     items: initialCards,
@@ -121,16 +128,21 @@ section.renderItems();
 /*      Event Listner      */
 /* ----------------------- */
 
-// open the profile edit popup
+// handle the profile edit popup
 profileEditBtn.addEventListener("click", (obj) => {
+  const { name, description } = userInfo.getUserInfo();
+  console.log({ name, description });
+  userInfo.setUserInfo(name, description);
+
   editPopup.open();
   editPopup.setEventListeners();
-  obj.name = profileName.innerText;
-  obj.description = profileDescription.innerText;
+
+  // name = profileName.innerText;
+  // description = profileDescription.innerText;
   editFormValidator.resetValidation();
 });
 
-// open the photo add popup
+// handle the photo add popup
 photoAddBtn.addEventListener("click", (obj) => {
   addPopup.open();
   addPopup.setEventListeners();
@@ -139,4 +151,5 @@ photoAddBtn.addEventListener("click", (obj) => {
   addFormValidator.resetValidation();
 });
 
+// handle preview photo event listeners
 photoPopup.setEventListeners();

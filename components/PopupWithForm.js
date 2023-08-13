@@ -15,17 +15,18 @@ export default class PopupWithForm extends Popup {
     this._inputs.forEach((input) => {
       inputObj[input.name] = input.value;
     });
-
     console.log(inputObj);
     return inputObj;
   }
 
   //   add the submit event handler to the form and the click event listener to the close icon
   setEventListeners() {
+    const inputValues = this._getInputValues();
     super.setEventListeners();
     this._popupForm.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      this._handleFormSubmit(this._getInputValues());
+      this._handleFormSubmit(inputValues);
+      console.log(inputValues);
       this.close();
     });
   }
