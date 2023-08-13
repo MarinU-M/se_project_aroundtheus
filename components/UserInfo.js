@@ -10,7 +10,6 @@ export default class UserInfo {
       name: this._name.textContent,
       description: this._job.textContent,
     };
-    console.log(this._userInfo);
     return this._userInfo;
   }
 

@@ -68,15 +68,14 @@ function createCard(cardData, cardTemplate) {
   return cardElement.getView();
 }
 
-const userInfo = new UserInfo("#name-input", "#description-input");
+const userInfo = new UserInfo("#profile__name", "#profile__description");
 
 function handleProfileEditSubmit(obj) {
-  const { name, description } = userInfo.getUserInfo();
+  const { name, description } = obj;
 
-  console.log({ name, description });
   userInfo.setUserInfo(name, description);
-  profileName.innerText = name;
-  profileDescription.innerText = description;
+  // profileName.innerText = name;
+  // profileDescription.innerText = description;
 
   editPopup.close();
 }
@@ -101,8 +100,8 @@ editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
 // Popup instance for each form
-const editPopup = new PopupWithForm("#profile-popup", () => {
-  handleProfileEditSubmit();
+const editPopup = new PopupWithForm("#profile-popup", (obj) => {
+  handleProfileEditSubmit(obj);
 });
 
 const addPopup = new PopupWithForm("#photo-add-popup", (obj) => {
@@ -130,11 +129,12 @@ section.renderItems();
 
 // handle the profile edit popup
 profileEditBtn.addEventListener("click", (obj) => {
-  const { name, description } = userInfo.getUserInfo();
-  console.log({ name, description });
-  userInfo.setUserInfo(name, description);
-
   editPopup.open();
+  const { name, description } = userInfo.getUserInfo();
+
+  console.log(name);
+  console.log(description);
+  userInfo.setUserInfo(name, description);
   editPopup.setEventListeners();
 
   // name = profileName.innerText;
