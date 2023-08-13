@@ -44,7 +44,6 @@ const config = {
 };
 
 // Wrapper
-const profileEditPopup = document.querySelector("#profile-popup");
 const profileEditForm = document.forms["profile_form"];
 const cardList = document.querySelector("#gallery__cards");
 const photoAddPopup = document.querySelector("#photo-add-popup");
@@ -57,9 +56,6 @@ const profileDescription = document.querySelector("#profile__description");
 const photoAddBtn = document.querySelector("#profile__add-button");
 
 // From inputs
-const profileNameInput = profileEditPopup.querySelector("#name-input");
-const profileDescriptionInput =
-  profileEditPopup.querySelector("#description-input");
 const photoTitleInput = photoAddPopup.querySelector("#title-input");
 const photoLinkInput = photoAddPopup.querySelector("#image-link-input");
 
@@ -72,70 +68,70 @@ function createCard(cardData, cardTemplate) {
   return cardElement.getView();
 }
 
-function renderCard(cardData, cardTemplate) {
-  const cardElement = createCard(cardData, cardTemplate);
-  cardList.prepend(cardElement);
-}
+// function renderCard(cardData, cardTemplate) {
+//   const cardElement = createCard(cardData, cardTemplate);
+//   cardList.prepend(cardElement);
+// }
 
 function handleProfileEditSubmit(obj) {
-  // evt.preventDefault();
-  console.log(obj);
-  profileName.innerText = profileNameInput.value;
-  profileDescription.innerText = profileDescriptionInput.value;
-  closePopup(profileEditPopup);
+  profileName.innerText = obj.name;
+  profileDescription.innerText = obj.description;
 }
 
-function handlePhotoAddSubmit(evt) {
-  evt.preventDefault();
-  const cardData = {
-    name: photoTitleInput.value,
-    link: photoLinkInput.value,
-  };
-  // const renderCard = new Section(
-  //   {
-  //     items: cardData,
-  //     renderer: () => {
-  //       const newCard = createCard(cardData, "#card-template");
-  //       renderCard.addItem(newCard);
-  //     },
-  //   },
-  //   "#gallery__cards"
-  // );
-  // renderCard.renderItems();
-  renderCard(cardData, "#card-template");
-  closePopup(photoAddPopup);
-  photoAddForm.reset();
+function handlePhotoAddSubmit(obj) {
+  const cardData = Array.from({
+    name: obj.title,
+    link: obj.image,
+  });
+  console.log(cardData);
+  const renderCard = new Section(
+    {
+      items: cardData,
+      renderer: () => {
+        const newCard = createCard(cardData, "#card-template");
+        renderCard.addItem(newCard);
+      },
+    },
+    "#gallery__cards"
+  );
+  renderCard.renderItems();
+  // renderCard(cardData, "#card-template");
 }
 
 /* ----------------------- */
 /*      Event Listner      */
 /* ----------------------- */
-const editPopup = new PopupWithForm("#profile-popup", () => {
-  handleProfileEditSubmit();
+const editPopup = new PopupWithForm("#profile-popup", (obj) => {
+  handleProfileEditSubmit(obj);
 });
-// const addPopup = new PopupWithForm(".photo-add-popup");
-// const photoPopup = new PopupWithImage(".full-photo-popup");
 
 // open the profile edit popup
-profileEditBtn.addEventListener("click", () => {
+profileEditBtn.addEventListener("click", (obj) => {
   editPopup.open();
   editPopup.setEventListeners();
-  profileNameInput.value = profileName.innerText;
-  profileDescriptionInput.value = profileDescription.innerText;
+  obj.name = profileName.innerText;
+  obj.description = profileDescription.innerText;
   editFormValidator.resetValidation();
 });
 
+const addPopup = new PopupWithForm("#photo-add-popup", (obj) => {
+  handlePhotoAddSubmit(obj);
+});
+
 // open the photo add popup
-photoAddBtn.addEventListener("click", function () {
+photoAddBtn.addEventListener("click", (obj) => {
+  console.log(obj);
+  addPopup.open();
+  addPopup.setEventListeners();
+
   addFormValidator.resetValidation();
   openPopup(photoAddPopup);
 });
 
-// save the profile edit popup
-profileEditForm.addEventListener("submit", handleProfileEditSubmit);
-
 // save the photo add popup
 photoAddForm.addEventListener("submit", handlePhotoAddSubmit);
+
+const photoPopup = new PopupWithImage("#full-photo-popup");
 
 // close the popup when clicked overlay oe close button
 popups.forEach((popup) => {
