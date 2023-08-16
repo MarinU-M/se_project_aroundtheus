@@ -1,8 +1,6 @@
-import { popups, openPopup, closePopup } from "../utils/utils.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
-import Popup from "../components/Popup.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
@@ -47,14 +45,11 @@ const config = {
 
 // Wrapper
 const profileEditForm = document.forms["profile_form"];
-const cardList = document.querySelector("#gallery__cards");
 const photoAddPopup = document.querySelector("#photo-add-popup");
 const photoAddForm = document.forms["photo_form"];
 
 // Button and others
 const profileEditBtn = document.querySelector("#profile__edit-button");
-const profileName = document.querySelector("#profile__name");
-const profileDescription = document.querySelector("#profile__description");
 const photoAddBtn = document.querySelector("#profile__add-button");
 const photoTitle = photoAddPopup.querySelector("#title-input");
 const photoLink = photoAddPopup.querySelector("#image-link-input");
@@ -74,9 +69,6 @@ function handleProfileEditSubmit(obj) {
   const { name, description } = obj;
 
   userInfo.setUserInfo(name, description);
-  // profileName.innerText = name;
-  // profileDescription.innerText = description;
-
   editPopup.close();
 }
 
@@ -136,9 +128,6 @@ profileEditBtn.addEventListener("click", (obj) => {
   console.log(description);
   userInfo.setUserInfo(name, description);
   editPopup.setEventListeners();
-
-  // name = profileName.innerText;
-  // description = profileDescription.innerText;
   editFormValidator.resetValidation();
 });
 
