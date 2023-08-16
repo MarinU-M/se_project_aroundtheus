@@ -95,12 +95,15 @@ addFormValidator.enableValidation();
 const editPopup = new PopupWithForm("#profile-popup", (obj) => {
   handleProfileEditSubmit(obj);
 });
+editPopup.setEventListeners();
 
 const addPopup = new PopupWithForm("#photo-add-popup", (obj) => {
   handlePhotoAddSubmit(obj);
 });
+addPopup.setEventListeners();
 
 const photoPopup = new PopupWithImage("#full-photo-popup");
+photoPopup.setEventListeners();
 
 // render initialcards
 const section = new Section(
@@ -123,22 +126,14 @@ section.renderItems();
 profileEditBtn.addEventListener("click", (obj) => {
   editPopup.open();
   const { name, description } = userInfo.getUserInfo();
-
-  console.log(name);
-  console.log(description);
   userInfo.setUserInfo(name, description);
-  editPopup.setEventListeners();
   editFormValidator.resetValidation();
 });
 
 // handle the photo add popup
 photoAddBtn.addEventListener("click", (obj) => {
   addPopup.open();
-  addPopup.setEventListeners();
   obj.title = photoTitle.innerText;
   obj.image = photoLink.innerText;
   addFormValidator.resetValidation();
 });
-
-// handle preview photo event listeners
-photoPopup.setEventListeners();
