@@ -138,3 +138,5 @@ photoAddBtn.addEventListener("click", (obj) => {
   obj.image = photoLink.innerText;
   addFormValidator.resetValidation();
 });
+
+console.log("Hello");
