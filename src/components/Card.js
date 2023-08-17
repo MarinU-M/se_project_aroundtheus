@@ -32,7 +32,11 @@ export default class Card {
     previewPhoto.src = this._link;
     previewPhoto.alt = this._name;
     previewTitle.innerText = this._name;
-    this._handleCardClick.open();
+    const cardData = {
+      name: this._name,
+      link: this._link,
+    };
+    this._handleCardClick.open(cardData);
   }
 
   _setEventListeners() {
