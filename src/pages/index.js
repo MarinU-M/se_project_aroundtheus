@@ -45,12 +45,15 @@ const config = {
 };
 
 // Wrapper
+const profileEditPopup = document.querySelector("#profile-popup");
 const profileEditForm = document.forms["profile_form"];
 const photoAddPopup = document.querySelector("#photo-add-popup");
 const photoAddForm = document.forms["photo_form"];
 
 // Button and others
 const profileEditBtn = document.querySelector("#profile__edit-button");
+const profileNameInput = profileEditPopup.querySelector("#name-input");
+const profileDescInput = profileEditPopup.querySelector("#description-input");
 const photoAddBtn = document.querySelector("#profile__add-button");
 const photoTitle = photoAddPopup.querySelector("#title-input");
 const photoLink = photoAddPopup.querySelector("#image-link-input");
@@ -124,9 +127,12 @@ section.renderItems();
 /* ----------------------- */
 
 // handle the profile edit popup
-profileEditBtn.addEventListener("click", (obj) => {
-  editPopup.open();
+profileEditBtn.addEventListener("click", () => {
   const { name, description } = userInfo.getUserInfo();
+
+  profileNameInput.value = name;
+  profileDescInput.value = description;
+  editPopup.open();
   userInfo.setUserInfo(name, description);
   editFormValidator.resetValidation();
 });
