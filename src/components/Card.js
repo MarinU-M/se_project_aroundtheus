@@ -1,12 +1,12 @@
 import Popup from "./Popup.js";
 
 export default class Card {
-  constructor({ name, link }, cardSelector) {
+  constructor({ name, link }, cardSelector, handleCardClick) {
     this._name = name;
     this._link = link;
     this._cardSelector = document.querySelector(cardSelector);
 
-    this._handleCardClick = new Popup("#full-photo-popup");
+    this._handleCardClick = handleCardClick;
 
     this._element = this._cardSelector.content
       .querySelector(".card")
@@ -28,16 +28,16 @@ export default class Card {
     this._element.remove();
   }
 
-  _handlePhotoPopup() {
-    this._previewPhoto.src = this._link;
-    this._previewPhoto.alt = this._name;
-    this._previewTitle.innerText = this._name;
-    const cardData = {
-      name: this._name,
-      link: this._link,
-    };
-    this._handleCardClick.open(cardData);
-  }
+  // _handlePhotoPopup() {
+  //   this._previewPhoto.src = this._link;
+  //   this._previewPhoto.alt = this._name;
+  //   this._previewTitle.innerText = this._name;
+  //   const cardData = {
+  //     name: this._name,
+  //     link: this._link,
+  //   };
+  //   this._handleCardClick.open(cardData);
+  // }
 
   _setEventListeners() {
     // #card__like-button
@@ -50,7 +50,7 @@ export default class Card {
     });
     // #full-photo-popup
     this._cardImage.addEventListener("click", () => {
-      this._handlePhotoPopup();
+      this._handleCardClick();
     });
   }
 

@@ -61,7 +61,10 @@ enableValidation(config);
 /* ------------------ */
 
 function createCard(cardData, cardTemplate) {
-  const cardElement = new Card(cardData, cardTemplate);
+  const cardElement = new Card(cardData, cardTemplate, (cardData) => {
+    console.log(cardData);
+    photoPopup.open(cardData);
+  });
   return cardElement.getView();
 }
 
