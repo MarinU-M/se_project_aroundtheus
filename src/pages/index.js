@@ -7,16 +7,54 @@ import UserInfo from "../components/UserInfo.js";
 import {
   initialCards,
   config,
-  profileEditForm,
-  photoAddForm,
   profileEditBtn,
   profileNameInput,
   profileDescInput,
   photoAddBtn,
-  photoTitle,
-  photoLink,
 } from "../utils/constants.js";
 import "../pages/index.css";
+
+/* ----------------------- */
+/*     Class Instances     */
+/* ----------------------- */
+const userInfo = new UserInfo("#profile__name", "#profile__description");
+const editPopup = new PopupWithForm("#profile-popup", (obj) => {
+  handleProfileEditSubmit(obj);
+});
+const addPopup = new PopupWithForm("#photo-add-popup", (obj) => {
+  handlePhotoAddSubmit(obj);
+});
+const photoPopup = new PopupWithImage("#full-photo-popup");
+const section = new Section(
+  {
+    items: initialCards,
+    renderer: (cardData) => {
+      const newCard = createCard(cardData, "#card-template");
+      section.addItem(newCard);
+    },
+  },
+  "#gallery__cards"
+);
+
+/* ----------------------- */
+/*     Form Validation     */
+/* ----------------------- */
+const formValidators = {};
+// enable validation
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement);
+    // here you get the name of the form
+    const formName = formElement.getAttribute("name");
+
+    // here you store a validator by the `name` of the form
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(config);
 
 /* ------------------ */
 /*      Functions     */
@@ -27,11 +65,8 @@ function createCard(cardData, cardTemplate) {
   return cardElement.getView();
 }
 
-const userInfo = new UserInfo("#profile__name", "#profile__description");
-
 function handleProfileEditSubmit(obj) {
   const { name, description } = obj;
-
   userInfo.setUserInfo(name, description);
   editPopup.close();
 }
@@ -45,59 +80,28 @@ function handlePhotoAddSubmit(obj) {
   section.addItem(newCard);
 }
 
-/* ----------------------- */
-/*     Class Instances     */
-/* ----------------------- */
-
-// enable form validator
-const editFormValidator = new FormValidator(config, profileEditForm);
-const addFormValidator = new FormValidator(config, photoAddForm);
-editFormValidator.enableValidation();
-addFormValidator.enableValidation();
-
-// Popup instance for each form
-const editPopup = new PopupWithForm("#profile-popup", (obj) => {
-  handleProfileEditSubmit(obj);
-});
-editPopup.setEventListeners();
-
-const addPopup = new PopupWithForm("#photo-add-popup", (obj) => {
-  handlePhotoAddSubmit(obj);
-});
-addPopup.setEventListeners();
-
-const photoPopup = new PopupWithImage("#full-photo-popup");
-photoPopup.setEventListeners();
-
 // render initialcards
-const section = new Section(
-  {
-    items: initialCards,
-    renderer: (cardData) => {
-      const newCard = createCard(cardData, "#card-template");
-      section.addItem(newCard);
-    },
-  },
-  "#gallery__cards"
-);
 section.renderItems();
 
 /* ----------------------- */
 /*      Event Listner      */
 /* ----------------------- */
+// eneble event listeners in each form
+editPopup.setEventListeners();
+addPopup.setEventListeners();
+photoPopup.setEventListeners();
 
 // handle the profile edit popup
 profileEditBtn.addEventListener("click", () => {
   const { name, description } = userInfo.getUserInfo();
-
   profileNameInput.value = name;
   profileDescInput.value = description;
   editPopup.open();
-  editFormValidator.resetValidation();
+  formValidators["profile_form"].resetValidation();
 });
 
 // handle the photo add popup
 photoAddBtn.addEventListener("click", () => {
   addPopup.open();
-  addFormValidator.resetValidation();
+  formValidators["photo_form"].resetValidation();
 });
