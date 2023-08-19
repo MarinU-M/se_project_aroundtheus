@@ -1,9 +1,5 @@
 import Popup from "./Popup.js";
 
-const fullPhotoPopup = document.querySelector("#full-photo-popup");
-const previewPhoto = fullPhotoPopup.querySelector(".popup__full-photo");
-const previewTitle = fullPhotoPopup.querySelector(".popup__title");
-
 export default class Card {
   constructor({ name, link }, cardSelector) {
     this._name = name;
@@ -19,6 +15,10 @@ export default class Card {
     this._deleteBtn = this._element.querySelector("#card__delete-button");
     this._cardImage = this._element.querySelector("#card__image");
     this._cardTitle = this._element.querySelector("#card__title");
+    this._fullPhotoPopup = document.querySelector("#full-photo-popup");
+    this._previewPhoto =
+      this._fullPhotoPopup.querySelector(".popup__full-photo");
+    this._previewTitle = this._fullPhotoPopup.querySelector(".popup__title");
   }
   _handleLikeIcon() {
     this._likeBtn.classList.toggle("card__like-button_active");
@@ -29,9 +29,9 @@ export default class Card {
   }
 
   _handlePhotoPopup() {
-    previewPhoto.src = this._link;
-    previewPhoto.alt = this._name;
-    previewTitle.innerText = this._name;
+    this._previewPhoto.src = this._link;
+    this._previewPhoto.alt = this._name;
+    this._previewTitle.innerText = this._name;
     const cardData = {
       name: this._name,
       link: this._link,
