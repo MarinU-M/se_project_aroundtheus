@@ -94,8 +94,7 @@ photoPopup.setEventListeners();
 // handle the profile edit popup
 profileEditBtn.addEventListener("click", () => {
   const { name, description } = userInfo.getUserInfo();
-  profileNameInput.value = name;
-  profileDescInput.value = description;
+  editPopup.setInputValues({ name, description });
   editPopup.open();
   formValidators["profile_form"].resetValidation();
 });

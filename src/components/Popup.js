@@ -23,6 +23,9 @@ export default class Popup {
   _closeByEscape(evt) {
     if (evt.key === "Escape") {
       if (this._popupEl.classList.contains("popup_opened")) {
+        // document.removeEventListener("keydown", (evt) => {
+        //   this._closeByEscape(evt);
+        // });
         this.close();
       }
     }

@@ -1,4 +1,4 @@
-import PopupWithImage from "./PopupWithImage.js";
+import Popup from "./Popup.js";
 
 const fullPhotoPopup = document.querySelector("#full-photo-popup");
 const previewPhoto = fullPhotoPopup.querySelector(".popup__full-photo");
@@ -10,7 +10,7 @@ export default class Card {
     this._link = link;
     this._cardSelector = document.querySelector(cardSelector);
 
-    this._handleCardClick = new PopupWithImage("#full-photo-popup");
+    this._handleCardClick = new Popup("#full-photo-popup");
 
     this._element = this._cardSelector.content
       .querySelector(".card")
