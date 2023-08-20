@@ -37,20 +37,8 @@ const config = {
   formSelector: "#forms",
 };
 
-// Wrapper
-const profileEditPopup = document.querySelector("#profile-popup");
-
-// Button and others
+// Button
 const profileEditBtn = document.querySelector("#profile__edit-button");
-const profileNameInput = profileEditPopup.querySelector("#name-input");
-const profileDescInput = profileEditPopup.querySelector("#description-input");
 const photoAddBtn = document.querySelector("#profile__add-button");
 
-export {
-  initialCards,
-  config,
-  profileEditBtn,
-  profileNameInput,
-  profileDescInput,
-  photoAddBtn,
-};
+export { initialCards, config, profileEditBtn, photoAddBtn };

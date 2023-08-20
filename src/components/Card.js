@@ -1,5 +1,3 @@
-import Popup from "./Popup.js";
-
 export default class Card {
   constructor({ name, link }, cardSelector, handleCardClick) {
     this._name = name;
@@ -28,17 +26,6 @@ export default class Card {
     this._element.remove();
   }
 
-  // _handlePhotoPopup() {
-  //   this._previewPhoto.src = this._link;
-  //   this._previewPhoto.alt = this._name;
-  //   this._previewTitle.innerText = this._name;
-  //   const cardData = {
-  //     name: this._name,
-  //     link: this._link,
-  //   };
-  //   this._handleCardClick.open(cardData);
-  // }
-
   _setEventListeners() {
     // #card__like-button
     this._likeBtn.addEventListener("click", () => {
@@ -50,7 +37,7 @@ export default class Card {
     });
     // #full-photo-popup
     this._cardImage.addEventListener("click", () => {
-      this._handleCardClick();
+      this._handleCardClick({ name: this._name, link: this._link });
     });
   }
 

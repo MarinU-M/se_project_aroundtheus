@@ -8,8 +8,6 @@ import {
   initialCards,
   config,
   profileEditBtn,
-  profileNameInput,
-  profileDescInput,
   photoAddBtn,
 } from "../utils/constants.js";
 import "../pages/index.css";
