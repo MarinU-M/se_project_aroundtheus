@@ -34,7 +34,7 @@ const config = {
   inactiveButtonClass: "popup__save_disabled",
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
-  formSelector: "#forms",
+  formSelector: ".popup__form",
 };
 
 // Button
