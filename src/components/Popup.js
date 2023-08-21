@@ -14,18 +14,20 @@ export default class Popup {
 
   close() {
     this._popupEl.classList.remove("popup_opened");
-    // document.removeEventListener("keydown", (evt) => {
-    //   this._closeByEscape(evt);
-    // });
+    console.log(this);
+    document.removeEventListener("keydown", (evt) => {
+      this._closeByEscape(evt);
+    });
   }
 
   // _handleEscClose() for closing the popup by pressing the Esc key.
   _closeByEscape(evt) {
+    console.log(this);
     if (evt.key === "Escape") {
       if (this._popupEl.classList.contains("popup_opened")) {
-        document.removeEventListener("keydown", (evt) => {
-          this._closeByEscape(evt);
-        });
+        // document.removeEventListener("keydown", (evt) => {
+        //   this._closeByEscape(evt);
+        // });
         this.close();
       }
     }

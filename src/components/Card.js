@@ -13,10 +13,6 @@ export default class Card {
     this._deleteBtn = this._element.querySelector("#card__delete-button");
     this._cardImage = this._element.querySelector("#card__image");
     this._cardTitle = this._element.querySelector("#card__title");
-    this._fullPhotoPopup = document.querySelector("#full-photo-popup");
-    this._previewPhoto =
-      this._fullPhotoPopup.querySelector(".popup__full-photo");
-    this._previewTitle = this._fullPhotoPopup.querySelector(".popup__title");
   }
   _handleLikeIcon() {
     this._likeBtn.classList.toggle("card__like-button_active");
