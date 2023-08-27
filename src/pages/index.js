@@ -104,3 +104,13 @@ photoAddBtn.addEventListener("click", () => {
   addPopup.open();
   formValidators["photo_form"].resetValidation();
 });
+
+fetch("https://around-api.en.tripleten-services.com/v1", {
+  headers: {
+    authorization: "6d3d8659-087c-48a4-9b8b-b1f3f711b21d",
+  },
+})
+  .then((res) => res.json())
+  .then((result) => {
+    console.log(result);
+  });
