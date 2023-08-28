@@ -1,33 +1,31 @@
-class Api {
-  constructor(baseUrl, headers) {
+export default class Api {
+  constructor(url) {
     // constructor body
-    this._baseUrl = baseUrl;
-    this._headers = headers;
-    this._authorization = this._headers[authorization];
-    this._type = this._headers["Content-Type"];
+    this._baseUrl = url.baseUrl;
+    this._authorization = url.authorization;
   }
 
-  getInitialCards() {
-    return fetch(this._baseUrl, this._headers)
+  getCardList() {
+    return fetch(`${this._baseUrl}/cards`, {
+      headers: {
+        authorization: this._authorization,
+      },
+    })
       .then((res) => {
         if (res.ok) {
           return res.json();
         }
-        // if the server returns an error, reject the promise
+
         return Promise.reject(`Error: ${res.status}`);
       })
-      .catch((err) => {
-        console.error(err); // log the error to the console
-      });
+      .catch((err) => console.log(err));
   }
-
-  // other methods for working with the API
 }
 
-const api = new Api({
-  baseUrl: "https://around-api.en.tripleten-services.com/v1",
-  headers: {
-    authorization: "6d3d8659-087c-48a4-9b8b-b1f3f711b21d",
-    "Content-Type": "application/json",
-  },
-});
+// const api = new Api({
+//   baseUrl: "https://around-api.en.tripleten-services.com/v1",
+//   headers: {
+//     authorization: "6d3d8659-087c-48a4-9b8b-b1f3f711b21d",
+//     "Content-Type": "application/json",
+//   },
+// });

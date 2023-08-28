@@ -4,6 +4,7 @@ import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api.js";
 import {
   initialCards,
   config,
@@ -15,6 +16,13 @@ import "../pages/index.css";
 /* ----------------------- */
 /*     Class Instances     */
 /* ----------------------- */
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  authorization: "6d3d8659-087c-48a4-9b8b-b1f3f711b21d",
+});
+
+api.getCardList().then((res) => console.log(res));
+
 const userInfo = new UserInfo("#profile__name", "#profile__description");
 const editPopup = new PopupWithForm("#profile-popup", (obj) => {
   handleProfileEditSubmit(obj);
@@ -104,13 +112,3 @@ photoAddBtn.addEventListener("click", () => {
   addPopup.open();
   formValidators["photo_form"].resetValidation();
 });
-
-fetch("https://around-api.en.tripleten-services.com/v1", {
-  headers: {
-    authorization: "6d3d8659-087c-48a4-9b8b-b1f3f711b21d",
-  },
-})
-  .then((res) => res.json())
-  .then((result) => {
-    console.log(result);
-  });
