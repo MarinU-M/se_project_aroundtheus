@@ -53,6 +53,10 @@ api.getUsersInfo().then((res) => {
   return userInfo.setUserInfo(user.name, user.about, user.avatar);
 });
 
+api.getCardList().then((res) => {
+  console.log(res[1]);
+  console.log(res);
+});
 /* ----------------------- */
 /*     Form Validation     */
 /* ----------------------- */
