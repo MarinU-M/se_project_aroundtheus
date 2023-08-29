@@ -18,11 +18,17 @@ import "../pages/index.css";
 /* ----------------------- */
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
-  authorization: "6d3d8659-087c-48a4-9b8b-b1f3f711b21d",
+  headers: {
+    authorization: "6d3d8659-087c-48a4-9b8b-b1f3f711b21d",
+    "Content-Type": "application/json",
+  },
 });
 
-api.getCardList().then((res) => console.log(res));
-
+api.getUsersInfo().then((res) => {
+  const userInfo = res;
+  return console.log(userInfo);
+});
+// console.log(preloadcards);
 const userInfo = new UserInfo("#profile__name", "#profile__description");
 const editPopup = new PopupWithForm("#profile-popup", (obj) => {
   handleProfileEditSubmit(obj);

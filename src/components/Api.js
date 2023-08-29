@@ -1,24 +1,33 @@
 export default class Api {
-  constructor(url) {
+  constructor({ baseUrl, headers }) {
     // constructor body
-    this._baseUrl = url.baseUrl;
-    this._authorization = url.authorization;
+    this._baseUrl = baseUrl;
+    this._authorization = headers.authorization;
+  }
+
+  _checkServerResponse(res) {
+    if (res.ok) {
+      return res.json();
+    } else {
+      return Promise.reject(`Error: ${res.status}`);
+    }
+  }
+  getUsersInfo() {
+    return fetch(`${this._baseUrl}/users/me`, {
+      headers: {
+        method: "GET",
+        authorization: this._authorization,
+      },
+    }).then((res) => this._checkServerResponse(res));
   }
 
   getCardList() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: {
+        method: "GET",
         authorization: this._authorization,
       },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => console.log(err));
+    }).then((res) => this._checkServerResponse(res));
   }
 }
 
