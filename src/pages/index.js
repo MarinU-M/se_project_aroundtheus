@@ -24,12 +24,11 @@ const api = new Api({
   },
 });
 
-api.getUsersInfo().then((res) => {
-  const userInfo = res;
-  return console.log(userInfo);
-});
-// console.log(preloadcards);
-const userInfo = new UserInfo("#profile__name", "#profile__description");
+const userInfo = new UserInfo(
+  "#profile__name",
+  "#profile__description",
+  "#profile__image"
+);
 const editPopup = new PopupWithForm("#profile-popup", (obj) => {
   handleProfileEditSubmit(obj);
 });
@@ -47,6 +46,12 @@ const section = new Section(
   },
   "#gallery__cards"
 );
+
+// get user info from the server and set profile section
+api.getUsersInfo().then((res) => {
+  const user = res;
+  return userInfo.setUserInfo(user.name, user.about, user.avatar);
+});
 
 /* ----------------------- */
 /*     Form Validation     */
@@ -79,11 +84,11 @@ function createCard(cardData, cardTemplate) {
   return cardElement.getView();
 }
 
-function handleProfileEditSubmit(obj) {
-  const { name, description } = obj;
-  userInfo.setUserInfo(name, description);
-  editPopup.close();
-}
+// function handleProfileEditSubmit(obj) {
+//   const { name, description } = obj;
+//   userInfo.setUserInfo(name, description);
+//   editPopup.close();
+// }
 
 function handlePhotoAddSubmit(obj) {
   const cardData = {
@@ -107,8 +112,8 @@ photoPopup.setEventListeners();
 
 // handle the profile edit popup
 profileEditBtn.addEventListener("click", () => {
-  const { name, description } = userInfo.getUserInfo();
-  editPopup.setInputValues({ name, description });
+  const { name, about } = userInfo.getUserInfo();
+  editPopup.setInputValues({ name, about });
   editPopup.open();
   formValidators["profile_form"].resetValidation();
 });
