@@ -29,6 +29,7 @@ const userInfo = new UserInfo(
   "#profile__description",
   "#profile__image"
 );
+
 const editPopup = new PopupWithForm("#profile-popup", (obj) => {
   handleProfileEditSubmit(obj);
 });
@@ -36,20 +37,39 @@ const addPopup = new PopupWithForm("#photo-add-popup", (obj) => {
   handlePhotoAddSubmit(obj);
 });
 const photoPopup = new PopupWithImage("#full-photo-popup");
-let cardList;
-api.getCardList().then((res) => {
-  return (cardList = res);
-});
-const section = new Section(
-  {
-    items: cardList,
-    renderer: (cardData) => {
-      const newCard = createCard(cardData, "#card-template");
-      section.addItem(newCard);
+
+let section;
+api.getCardList().then(([res]) => {
+  console.log(res);
+  console.log(typeof res);
+  // const cardList = Array.from(res);
+  const cardList = res;
+  section = new Section(
+    {
+      items: cardList,
+      renderer: (cardData) => {
+        const newCard = createCard(cardData, "#card-template");
+        section.addItem(newCard);
+      },
     },
-  },
-  "#gallery__cards"
-);
+    "#gallery__cards"
+  );
+  console.log(cardList);
+  return section.renderItems();
+});
+
+// const section = new Section(
+//   {
+//     items: initialCards,
+//     renderer: (cardData) => {
+//       const newCard = createCard(cardData, "#card-template");
+//       section.addItem(newCard);
+//     },
+//   },
+//   "#gallery__cards"
+// );
+// // render initialcards
+// section.renderItems();
 
 // get user info from the server and set profile section
 api.getUsersInfo().then((res) => {
@@ -57,6 +77,8 @@ api.getUsersInfo().then((res) => {
   return userInfo.setUserInfo(user.name, user.about, user.avatar);
 });
 
+// api.addNewCard();
+// api.getCardList();
 /* ----------------------- */
 /*     Form Validation     */
 /* ----------------------- */
@@ -89,7 +111,9 @@ function createCard(cardData, cardTemplate) {
 }
 
 function handleProfileEditSubmit(obj) {
+  console.log(obj);
   const { name, about } = obj;
+  api.editProfile({ name, about });
   userInfo.setUserInfo(name, about);
   editPopup.close();
 }
@@ -103,9 +127,6 @@ function handlePhotoAddSubmit(obj) {
   section.addItem(newCard);
 }
 
-// render initialcards
-section.renderItems();
-
 /* ----------------------- */
 /*      Event Listner      */
 /* ----------------------- */
@@ -117,6 +138,7 @@ photoPopup.setEventListeners();
 // handle the profile edit popup
 profileEditBtn.addEventListener("click", () => {
   const { name, about } = userInfo.getUserInfo();
+  console.log(about);
   editPopup.setInputValues({ name, about });
   editPopup.open();
   formValidators["profile_form"].resetValidation();

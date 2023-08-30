@@ -29,4 +29,32 @@ export default class Api {
       },
     }).then((res) => this._checkServerResponse(res));
   }
+
+  editProfile(obj) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: "PATCH",
+      headers: {
+        authorization: this._authorization,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: obj.name,
+        about: obj.about,
+      }),
+    }).then((res) => this._checkServerResponse(res));
+  }
+
+  addNewCard(obj) {
+    return fetch(`${this._baseUrl}/cards`, {
+      method: "POST",
+      headers: {
+        authorization: this._authorization,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: obj.name,
+        link: obj.link,
+      }),
+    }).then((res) => this._checkServerResponse(res));
+  }
 }
