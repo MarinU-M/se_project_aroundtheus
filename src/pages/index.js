@@ -38,12 +38,11 @@ const addPopup = new PopupWithForm("#photo-add-popup", (obj) => {
 });
 const photoPopup = new PopupWithImage("#full-photo-popup");
 
+// load card list from server
 let section;
-api.getCardList().then(([res]) => {
-  console.log(res);
-  console.log(typeof res);
+api.getCardList().then((res) => {
   // const cardList = Array.from(res);
-  const cardList = [res];
+  const cardList = res;
   section = new Section(
     {
       items: cardList,
@@ -78,7 +77,7 @@ api.getUsersInfo().then((res) => {
 });
 
 // api.addNewCard();
-// api.getCardList();
+
 /* ----------------------- */
 /*     Form Validation     */
 /* ----------------------- */
