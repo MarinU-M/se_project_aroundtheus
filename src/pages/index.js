@@ -43,7 +43,7 @@ api.getCardList().then(([res]) => {
   console.log(res);
   console.log(typeof res);
   // const cardList = Array.from(res);
-  const cardList = res;
+  const cardList = [res];
   section = new Section(
     {
       items: cardList,
