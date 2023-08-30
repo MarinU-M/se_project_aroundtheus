@@ -30,6 +30,12 @@ const userInfo = new UserInfo(
   "#profile__image"
 );
 
+// get user info from the server and set profile section
+api.getUsersInfo().then((res) => {
+  const user = res;
+  return userInfo.setUserInfo(user.name, user.about, user.avatar);
+});
+
 const editPopup = new PopupWithForm("#profile-popup", (obj) => {
   handleProfileEditSubmit(obj);
 });
@@ -37,25 +43,6 @@ const addPopup = new PopupWithForm("#photo-add-popup", (obj) => {
   handlePhotoAddSubmit(obj);
 });
 const photoPopup = new PopupWithImage("#full-photo-popup");
-
-// load card list from server
-let section;
-api.getCardList().then((res) => {
-  // const cardList = Array.from(res);
-  const cardList = res;
-  section = new Section(
-    {
-      items: cardList,
-      renderer: (cardData) => {
-        const newCard = createCard(cardData, "#card-template");
-        section.addItem(newCard);
-      },
-    },
-    "#gallery__cards"
-  );
-  console.log(cardList);
-  return section.renderItems();
-});
 
 // const section = new Section(
 //   {
@@ -70,12 +57,6 @@ api.getCardList().then((res) => {
 // // render initialcards
 // section.renderItems();
 
-// get user info from the server and set profile section
-api.getUsersInfo().then((res) => {
-  const user = res;
-  return userInfo.setUserInfo(user.name, user.about, user.avatar);
-});
-
 // api.addNewCard();
 
 /* ----------------------- */
@@ -87,10 +68,10 @@ const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach((formElement) => {
     const validator = new FormValidator(config, formElement);
-    // here you get the name of the form
+    // get the name of the form
     const formName = formElement.getAttribute("name");
 
-    // here you store a validator by the `name` of the form
+    // store a validator by the `name` of the form
     formValidators[formName] = validator;
     validator.enableValidation();
   });
@@ -110,10 +91,8 @@ function createCard(cardData, cardTemplate) {
 }
 
 function handleProfileEditSubmit(obj) {
-  console.log(obj);
-  const { name, about } = obj;
-  api.editProfile({ name, about });
-  userInfo.setUserInfo(name, about);
+  api.editProfile(obj);
+  userInfo.setUserInfo(obj);
   editPopup.close();
 }
 
@@ -137,7 +116,7 @@ photoPopup.setEventListeners();
 // handle the profile edit popup
 profileEditBtn.addEventListener("click", () => {
   const { name, about } = userInfo.getUserInfo();
-  console.log(about);
+  console.log(name);
   editPopup.setInputValues({ name, about });
   editPopup.open();
   formValidators["profile_form"].resetValidation();
@@ -147,4 +126,21 @@ profileEditBtn.addEventListener("click", () => {
 photoAddBtn.addEventListener("click", () => {
   addPopup.open();
   formValidators["photo_form"].resetValidation();
+});
+
+// load card list from server
+let section;
+api.getCardList().then((res) => {
+  const cardList = res;
+  section = new Section(
+    {
+      items: cardList,
+      renderer: (cardData) => {
+        const newCard = createCard(cardData, "#card-template");
+        section.addItem(newCard);
+      },
+    },
+    "#gallery__cards"
+  );
+  return section.renderItems();
 });

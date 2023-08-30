@@ -16,8 +16,8 @@ export default class UserInfo {
   }
 
   //   takes new user data and adds it on the page.
-  setUserInfo(nameInput, jobInput) {
-    this._name.textContent = nameInput;
-    this._job.textContent = jobInput;
+  setUserInfo(obj) {
+    this._name.textContent = obj.name;
+    this._job.textContent = obj.about;
   }
 }
