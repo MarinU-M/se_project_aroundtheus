@@ -30,11 +30,3 @@ export default class Api {
     }).then((res) => this._checkServerResponse(res));
   }
 }
-
-// const api = new Api({
-//   baseUrl: "https://around-api.en.tripleten-services.com/v1",
-//   headers: {
-//     authorization: "6d3d8659-087c-48a4-9b8b-b1f3f711b21d",
-//     "Content-Type": "application/json",
-//   },
-// });

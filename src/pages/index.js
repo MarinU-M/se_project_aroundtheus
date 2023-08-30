@@ -36,9 +36,13 @@ const addPopup = new PopupWithForm("#photo-add-popup", (obj) => {
   handlePhotoAddSubmit(obj);
 });
 const photoPopup = new PopupWithImage("#full-photo-popup");
+let cardList;
+api.getCardList().then((res) => {
+  return (cardList = res);
+});
 const section = new Section(
   {
-    items: initialCards,
+    items: cardList,
     renderer: (cardData) => {
       const newCard = createCard(cardData, "#card-template");
       section.addItem(newCard);
@@ -53,10 +57,6 @@ api.getUsersInfo().then((res) => {
   return userInfo.setUserInfo(user.name, user.about, user.avatar);
 });
 
-api.getCardList().then((res) => {
-  console.log(res[1]);
-  console.log(res);
-});
 /* ----------------------- */
 /*     Form Validation     */
 /* ----------------------- */
@@ -88,11 +88,11 @@ function createCard(cardData, cardTemplate) {
   return cardElement.getView();
 }
 
-// function handleProfileEditSubmit(obj) {
-//   const { name, description } = obj;
-//   userInfo.setUserInfo(name, description);
-//   editPopup.close();
-// }
+function handleProfileEditSubmit(obj) {
+  const { name, about } = obj;
+  userInfo.setUserInfo(name, about);
+  editPopup.close();
+}
 
 function handlePhotoAddSubmit(obj) {
   const cardData = {
