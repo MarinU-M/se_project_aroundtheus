@@ -57,4 +57,14 @@ export default class Api {
       }),
     }).then((res) => this._checkServerResponse(res));
   }
+
+  deleteCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
+      method: "DELETE",
+      headers: {
+        authorization: this._authorization,
+        "Content-Type": "application/json",
+      },
+    }).then((res) => this._checkServerResponse(res));
+  }
 }

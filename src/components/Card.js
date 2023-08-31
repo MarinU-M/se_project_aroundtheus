@@ -1,10 +1,12 @@
 export default class Card {
-  constructor({ name, link }, cardSelector, handleCardClick) {
-    this._name = name;
-    this._link = link;
+  constructor(data, cardSelector, handleCardClick, handleDeleteClick) {
+    this._name = data.name;
+    this._link = data.link;
+    this._id = data._id;
     this._cardSelector = document.querySelector(cardSelector);
 
     this._handleCardClick = handleCardClick;
+    this._handleDeleteClick = handleDeleteClick;
 
     this._element = this._cardSelector.content
       .querySelector(".card")
@@ -19,6 +21,7 @@ export default class Card {
   }
 
   _handleDeleteCard() {
+    this._handleDeleteClick(this._id);
     this._element.remove();
   }
 
