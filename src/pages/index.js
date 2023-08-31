@@ -33,7 +33,7 @@ const userInfo = new UserInfo(
 // get user info from the server and set profile section
 api.getUsersInfo().then((res) => {
   const user = res;
-  return userInfo.setUserInfo(user.name, user.about, user.avatar);
+  return userInfo.setUserInfo(user);
 });
 
 const editPopup = new PopupWithForm("#profile-popup", (obj) => {
@@ -56,8 +56,6 @@ const photoPopup = new PopupWithImage("#full-photo-popup");
 // );
 // // render initialcards
 // section.renderItems();
-
-// api.addNewCard();
 
 /* ----------------------- */
 /*     Form Validation     */
@@ -97,10 +95,13 @@ function handleProfileEditSubmit(obj) {
 }
 
 function handlePhotoAddSubmit(obj) {
-  const cardData = {
-    name: obj.title,
-    link: obj.image,
-  };
+  const cardData = api.addNewCard(obj);
+  console.log(cardData);
+
+  // const cardData = {
+  //   name: obj.title,
+  //   link: obj.image,
+  // };
   const newCard = createCard(cardData, "#card-template");
   section.addItem(newCard);
 }
