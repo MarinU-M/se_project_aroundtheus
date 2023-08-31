@@ -67,4 +67,26 @@ export default class Api {
       },
     }).then((res) => this._checkServerResponse(res));
   }
+
+  addCardLike(cardId) {
+    console.log(cardId);
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: "PUT",
+      headers: {
+        authorization: this._authorization,
+        "Content-Type": "application/json",
+      },
+    }).then((res) => this._checkServerResponse(res));
+  }
+
+  deleteCardLike(cardId) {
+    console.log(cardId);
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: "DELETE",
+      headers: {
+        authorization: this._authorization,
+        "Content-Type": "application/json",
+      },
+    }).then((res) => this._checkServerResponse(res));
+  }
 }

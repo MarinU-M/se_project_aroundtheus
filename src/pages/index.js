@@ -89,6 +89,12 @@ function createCard(cardData, cardTemplate) {
     },
     (userId) => {
       api.deleteCard(userId);
+    },
+    (userId) => {
+      api.addCardLike(userId);
+    },
+    (userId) => {
+      api.deleteCardLike(userId);
     }
   );
   return cardElement.getView();
