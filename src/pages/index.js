@@ -32,8 +32,7 @@ const userInfo = new UserInfo(
 
 // get user info from the server and set profile section
 api.getUsersInfo().then((res) => {
-  const user = res;
-  return userInfo.setUserInfo(user);
+  return userInfo.setUserInfo(res);
 });
 
 const editPopup = new PopupWithForm("#profile-popup", (obj) => {
@@ -95,14 +94,8 @@ function handleProfileEditSubmit(obj) {
 }
 
 function handlePhotoAddSubmit(obj) {
-  const cardData = api.addNewCard(obj);
-  console.log(cardData);
-
-  // const cardData = {
-  //   name: obj.title,
-  //   link: obj.image,
-  // };
-  const newCard = createCard(cardData, "#card-template");
+  api.addNewCard(obj);
+  const newCard = createCard(obj, "#card-template");
   section.addItem(newCard);
 }
 
