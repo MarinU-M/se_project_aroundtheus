@@ -41,20 +41,10 @@ const editPopup = new PopupWithForm("#profile-popup", (obj) => {
 const addPopup = new PopupWithForm("#photo-add-popup", (obj) => {
   handlePhotoAddSubmit(obj);
 });
+const deletePopup = new PopupWithForm("#photo-delete-popup", (obj) => {
+  handleCardDeleteSubmit(obj);
+});
 const photoPopup = new PopupWithImage("#full-photo-popup");
-
-// const section = new Section(
-//   {
-//     items: initialCards,
-//     renderer: (cardData) => {
-//       const newCard = createCard(cardData, "#card-template");
-//       section.addItem(newCard);
-//     },
-//   },
-//   "#gallery__cards"
-// );
-// // render initialcards
-// section.renderItems();
 
 /* ----------------------- */
 /*     Form Validation     */
@@ -80,10 +70,11 @@ enableValidation(config);
 /*      Functions     */
 /* ------------------ */
 
-function createCard(cardData, cardTemplate) {
+function createCard(cardData) {
   const cardElement = new Card(
     cardData,
-    cardTemplate,
+    "#card-template",
+    "#photo-delete-popup",
     (cardData) => {
       photoPopup.open(cardData);
     },
@@ -110,8 +101,14 @@ function handlePhotoAddSubmit(obj) {
   api.addNewCard(obj);
   const newCard = createCard(obj, "#card-template");
   section.addItem(newCard);
+  addPopup.close();
 }
 
+function handleCardDeleteSubmit(obj) {
+  console.log(obj);
+  api.deleteCard(obj);
+  deletePopup.close();
+}
 /* ----------------------- */
 /*      Event Listner      */
 /* ----------------------- */
@@ -119,6 +116,7 @@ function handlePhotoAddSubmit(obj) {
 editPopup.setEventListeners();
 addPopup.setEventListeners();
 photoPopup.setEventListeners();
+deletePopup.setDeleteEventListeners();
 
 // handle the profile edit popup
 profileEditBtn.addEventListener("click", () => {
@@ -143,7 +141,7 @@ api.getCardList().then((res) => {
     {
       items: cardList,
       renderer: (cardData) => {
-        const newCard = createCard(cardData, "#card-template");
+        const newCard = createCard(cardData);
         section.addItem(newCard);
       },
     },

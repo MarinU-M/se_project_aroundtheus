@@ -2,6 +2,7 @@ export default class Card {
   constructor(
     data,
     cardSelector,
+    cardDeletePopupSelector,
     handleCardClick,
     handleDeleteClick,
     addLikeClick,
@@ -25,6 +26,7 @@ export default class Card {
     this._cardImage = this._element.querySelector("#card__image");
     this._cardTitle = this._element.querySelector("#card__title");
   }
+
   _handleLikeIcon() {
     if (!this._likeBtn.classList.contains("card__like-button_active")) {
       this._likeBtn.classList.add("card__like-button_active");
