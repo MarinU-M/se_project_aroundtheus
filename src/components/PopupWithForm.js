@@ -31,11 +31,12 @@ export default class PopupWithForm extends Popup {
   }
 
   // add the submit event handler to the button and the click event listener to the close icon
-  setDeleteEventListeners() {
+  setDeleteEventListeners(obj) {
     super.setEventListeners();
     this._popupForm.addEventListener("submit", (evt) => {
+      console.log(evt);
       evt.preventDefault();
-      this._handleFormSubmit(evt);
+      this._handleFormSubmit(obj);
       this.close();
     });
   }

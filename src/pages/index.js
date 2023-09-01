@@ -78,8 +78,10 @@ function createCard(cardData) {
     (cardData) => {
       photoPopup.open(cardData);
     },
-    (userId) => {
-      api.deleteCard(userId);
+    (cardId) => {
+      deletePopup.open();
+      deletePopup.setDeleteEventListeners(cardId);
+      // deletebtn.addEventListener("submit", (cardId) => )
     },
     (userId) => {
       api.addCardLike(userId);
@@ -94,20 +96,17 @@ function createCard(cardData) {
 function handleProfileEditSubmit(obj) {
   api.editProfile(obj);
   userInfo.setUserInfo(obj);
-  editPopup.close();
 }
 
 function handlePhotoAddSubmit(obj) {
   api.addNewCard(obj);
   const newCard = createCard(obj, "#card-template");
   section.addItem(newCard);
-  addPopup.close();
 }
 
 function handleCardDeleteSubmit(obj) {
   console.log(obj);
   api.deleteCard(obj);
-  deletePopup.close();
 }
 /* ----------------------- */
 /*      Event Listner      */

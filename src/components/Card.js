@@ -39,7 +39,7 @@ export default class Card {
 
   _handleDeleteCard() {
     this._handleDeleteClick(this._id);
-    this._element.remove();
+    // this._element.remove();
   }
 
   _setEventListeners() {
