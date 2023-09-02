@@ -155,6 +155,32 @@
       </div>
     </div>
 
+    <!-- Profile photo edit popup -->
+    <div class="popup" id="profile-photo-popup">
+      <div class="popup__container">
+        <button
+          class="popup__close"
+          id="profile-photo-close"
+          type="button"
+        ></button>
+        <p class="popup__heading">Change profile picture</p>
+        <form class="popup__form" name="profile_photo_form">
+          <label class="popup__label">
+            <input
+              type="url"
+              name="link"
+              class="popup__input"
+              placeholder="Image Link"
+              id="profile-photo-input"
+              required
+            />
+            <span class="popup__error" id="profile-photo-input-error"></span>
+          </label>
+          <button class="popup__save" type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+
     <!-- Card Template -->
     <template id="card-template">
       <li class="card">

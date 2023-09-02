@@ -69,7 +69,6 @@ export default class Api {
   }
 
   addCardLike(cardId) {
-    console.log(cardId);
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
       headers: {
@@ -80,9 +79,18 @@ export default class Api {
   }
 
   deleteCardLike(cardId) {
-    console.log(cardId);
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
+      headers: {
+        authorization: this._authorization,
+        "Content-Type": "application/json",
+      },
+    }).then((res) => this._checkServerResponse(res));
+  }
+
+  editProfilePhoto() {
+    return fetch(`${this._baseUrl}/users/me/avatar `, {
+      method: "PATCH",
       headers: {
         authorization: this._authorization,
         "Content-Type": "application/json",
