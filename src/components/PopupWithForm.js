@@ -34,11 +34,16 @@ export default class PopupWithForm extends Popup {
   setDeleteEventListeners(obj) {
     super.setEventListeners();
     this._popupForm.addEventListener("submit", (evt) => {
-      console.log(evt);
+      // console.log(evt);
       evt.preventDefault();
       this._handleFormSubmit(obj);
       this.close();
     });
+  }
+
+  //
+  setSubmitAction(action) {
+    this._handleFormSubmit = action;
   }
 
   //   to reset the form once the popup is closed.

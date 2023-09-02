@@ -74,13 +74,15 @@ function createCard(cardData) {
   const cardElement = new Card(
     cardData,
     "#card-template",
-    "#photo-delete-popup",
     (cardData) => {
       photoPopup.open(cardData);
     },
     (cardId) => {
       deletePopup.open();
+
       deletePopup.setDeleteEventListeners(cardId);
+      deletePopup.setSubmitAction(handleCardDeleteSubmit);
+      // deletePopup.setSubmitAction(cardElement.removeCard);
       // deletebtn.addEventListener("submit", (cardId) => )
     },
     (userId) => {
@@ -115,7 +117,6 @@ function handleCardDeleteSubmit(obj) {
 editPopup.setEventListeners();
 addPopup.setEventListeners();
 photoPopup.setEventListeners();
-deletePopup.setDeleteEventListeners();
 
 // handle the profile edit popup
 profileEditBtn.addEventListener("click", () => {

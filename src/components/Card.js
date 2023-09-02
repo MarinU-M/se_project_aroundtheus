@@ -2,7 +2,6 @@ export default class Card {
   constructor(
     data,
     cardSelector,
-    cardDeletePopupSelector,
     handleCardClick,
     handleDeleteClick,
     addLikeClick,
@@ -39,7 +38,6 @@ export default class Card {
 
   _handleDeleteCard() {
     this._handleDeleteClick(this._id);
-    // this._element.remove();
   }
 
   _setEventListeners() {
@@ -66,5 +64,9 @@ export default class Card {
     this._cardTitle.textContent = this._name;
     // return the card
     return this._element;
+  }
+
+  removeCard() {
+    this._element.remove();
   }
 }
