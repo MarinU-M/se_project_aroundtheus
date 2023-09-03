@@ -66,7 +66,7 @@ export default class Card {
     return this._element;
   }
 
-  removeCard() {
+  removeCard(obj) {
     this._element.remove();
   }
 }

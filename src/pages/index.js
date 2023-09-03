@@ -84,15 +84,19 @@ function createCard(cardData) {
       deletePopup.open();
 
       deletePopup.setDeleteEventListeners(cardId);
-      deletePopup.setSubmitAction(handleCardDeleteSubmit);
-      // deletePopup.setSubmitAction(cardElement.removeCard);
-      // deletebtn.addEventListener("submit", (cardId) => )
-    },
-    (userId) => {
-      api.addCardLike(userId);
-    },
-    (userId) => {
-      api.deleteCardLike(userId);
+      deletePopup.setSubmitAction(
+        (cardId) => {
+          api.deleteCard(cardId).then(() => {
+            cardElement.removeCard(cardId);
+          });
+        },
+        (cardId) => {
+          api.addCardLike(cardId);
+        },
+        (cardId) => {
+          api.deleteCardLike(cardId);
+        }
+      );
     }
   );
   return cardElement.getView();
@@ -109,10 +113,12 @@ function handlePhotoAddSubmit(obj) {
   section.addItem(newCard);
 }
 
-function handleCardDeleteSubmit(obj) {
-  console.log(obj);
-  api.deleteCard(obj);
-}
+// function handleCardDeleteSubmit(obj) {
+//   console.log(obj);
+//   api.deleteCard(obj).then(() => {
+//     cardElement.removeCard(obj);
+//   });
+// }
 
 function handleProfilePhotoSubmit(obj) {
   console.log(obj);
