@@ -6,10 +6,10 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 import {
-  initialCards,
   config,
   profileEditBtn,
   photoAddBtn,
+  profilePhoto,
 } from "../utils/constants.js";
 import "../pages/index.css";
 
@@ -43,6 +43,9 @@ const addPopup = new PopupWithForm("#photo-add-popup", (obj) => {
 });
 const deletePopup = new PopupWithForm("#photo-delete-popup", (obj) => {
   handleCardDeleteSubmit(obj);
+});
+const changePopup = new PopupWithForm("#profile-photo-popup", (obj) => {
+  handleProfilePhotoSubmit(obj);
 });
 const photoPopup = new PopupWithImage("#full-photo-popup");
 
@@ -110,6 +113,11 @@ function handleCardDeleteSubmit(obj) {
   console.log(obj);
   api.deleteCard(obj);
 }
+
+function handleProfilePhotoSubmit(obj) {
+  console.log(obj);
+  api.editProfilePhoto(obj);
+}
 /* ----------------------- */
 /*      Event Listner      */
 /* ----------------------- */
@@ -117,6 +125,7 @@ function handleCardDeleteSubmit(obj) {
 editPopup.setEventListeners();
 addPopup.setEventListeners();
 photoPopup.setEventListeners();
+changePopup.setEventListeners();
 
 // handle the profile edit popup
 profileEditBtn.addEventListener("click", () => {
@@ -133,6 +142,11 @@ photoAddBtn.addEventListener("click", () => {
   formValidators["photo_form"].resetValidation();
 });
 
+// handle the profile photo change popup
+profilePhoto.addEventListener("click", () => {
+  changePopup.open();
+  formValidators["profile_photo_form"].resetValidation();
+});
 // load card list from server
 let section;
 api.getCardList().then((res) => {

@@ -88,13 +88,16 @@ export default class Api {
     }).then((res) => this._checkServerResponse(res));
   }
 
-  editProfilePhoto() {
+  editProfilePhoto(obj) {
     return fetch(`${this._baseUrl}/users/me/avatar `, {
       method: "PATCH",
       headers: {
         authorization: this._authorization,
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        link: obj.link,
+      }),
     }).then((res) => this._checkServerResponse(res));
   }
 }
