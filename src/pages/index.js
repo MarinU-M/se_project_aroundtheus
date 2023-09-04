@@ -32,6 +32,7 @@ const userInfo = new UserInfo(
 
 // get user info from the server and set profile section
 api.getUsersInfo().then((res) => {
+  console.log(res);
   return userInfo.setUserInfo(res);
 });
 
@@ -45,6 +46,7 @@ const deletePopup = new PopupWithForm("#photo-delete-popup", (obj) => {
   handleCardDeleteSubmit(obj);
 });
 const changePopup = new PopupWithForm("#profile-photo-popup", (obj) => {
+  changePopup.renderLoading(true);
   handleProfilePhotoSubmit(obj);
 });
 const photoPopup = new PopupWithImage("#full-photo-popup");
@@ -86,9 +88,7 @@ function createCard(cardData) {
       deletePopup.setDeleteEventListeners(cardId);
       deletePopup.setSubmitAction(
         (cardId) => {
-          api.deleteCard(cardId).then(() => {
-            cardElement.removeCard(cardId);
-          });
+          cardElement.removeCard(cardId);
         },
         (cardId) => {
           api.addCardLike(cardId);
@@ -103,26 +103,64 @@ function createCard(cardData) {
 }
 
 function handleProfileEditSubmit(obj) {
-  api.editProfile(obj);
-  userInfo.setUserInfo(obj);
+  api
+    .editProfile(obj)
+    .then((obj) => {
+      editPopup.renderLoading(true);
+      userInfo.setUserInfo(obj);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      editPopup.renderLoading(false);
+    });
 }
 
 function handlePhotoAddSubmit(obj) {
-  api.addNewCard(obj);
-  const newCard = createCard(obj, "#card-template");
-  section.addItem(newCard);
+  api
+    .addNewCard(obj)
+    .then((obj) => {
+      addPopup.renderLoading(true);
+      const newCard = createCard(obj, "#card-template");
+      section.addItem(newCard);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      editPopup.renderLoading(false);
+    });
 }
 
-// function handleCardDeleteSubmit(obj) {
-//   console.log(obj);
-//   api.deleteCard(obj).then(() => {
-//     cardElement.removeCard(obj);
-//   });
-// }
+function handleCardDeleteSubmit(obj) {
+  console.log(obj);
+  api
+    .deleteCard(obj)
+    .then(() => {
+      deletePopup.renderLoading(true);
+      cardElement.removeCard(obj);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      editPopup.renderLoading(false);
+    });
+}
 
 function handleProfilePhotoSubmit(obj) {
-  console.log(obj);
-  api.editProfilePhoto(obj);
+  api
+    .editProfilePhoto(obj)
+    .then((obj) => {
+      userInfo.setUserInfo(obj);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      editPopup.renderLoading(false);
+    });
 }
 /* ----------------------- */
 /*      Event Listner      */
@@ -153,6 +191,7 @@ profilePhoto.addEventListener("click", () => {
   changePopup.open();
   formValidators["profile_photo_form"].resetValidation();
 });
+
 // load card list from server
 let section;
 api.getCardList().then((res) => {

@@ -5,6 +5,7 @@ export default class PopupWithForm extends Popup {
   constructor(popupSelector, handleFormSubmit) {
     super(popupSelector);
     this._popupForm = this._popupEl.querySelector(".popup__form");
+    this._submitBtn = this._popupForm.querySelector(".popup__save");
     this._handleFormSubmit = handleFormSubmit;
     this._inputs = this._popupForm.querySelectorAll(".popup__input");
     this._deleteBtn = this._popupEl.querySelector(".popup__save");
@@ -22,11 +23,13 @@ export default class PopupWithForm extends Popup {
   //   add the submit event handler to the form and the click event listener to the close icon
   setEventListeners() {
     super.setEventListeners();
+    // this._renderLoading(true);
     this._popupForm.addEventListener("submit", (evt) => {
       evt.preventDefault();
       const inputValues = this._getInputValues();
       this._handleFormSubmit(inputValues);
       this.close();
+      // this._renderLoading(false);
     });
   }
 
@@ -57,5 +60,12 @@ export default class PopupWithForm extends Popup {
     this._inputs.forEach((input) => {
       input.value = data[input.name];
     });
+  }
+
+  // render loading message
+  renderLoading(isLoading) {
+    if (isLoading) {
+      this._submitBtn.textContent = "Saving...";
+    }
   }
 }

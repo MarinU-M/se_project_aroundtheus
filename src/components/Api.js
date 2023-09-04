@@ -96,7 +96,7 @@ export default class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        link: obj.link,
+        avatar: obj.link,
       }),
     }).then((res) => this._checkServerResponse(res));
   }

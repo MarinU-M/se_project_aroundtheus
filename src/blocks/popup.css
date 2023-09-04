@@ -4,7 +4,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  padding: 0 19px;
+  padding: 0 20px;
   color: black;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
@@ -59,7 +59,7 @@
   line-height: 29px;
   letter-spacing: 0em;
   text-align: left;
-  margin: 0;
+  margin: 0 0 30px 0;
 }
 
 .popup__form {
@@ -67,7 +67,7 @@
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  margin-top: 50px;
+  min-height: fit-content;
 }
 
 .popup__label {
