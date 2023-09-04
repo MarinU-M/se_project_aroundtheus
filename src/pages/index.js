@@ -46,7 +46,6 @@ const deletePopup = new PopupWithForm("#photo-delete-popup", (obj) => {
   handleCardDeleteSubmit(obj);
 });
 const changePopup = new PopupWithForm("#profile-photo-popup", (obj) => {
-  changePopup.renderLoading(true);
   handleProfilePhotoSubmit(obj);
 });
 const photoPopup = new PopupWithImage("#full-photo-popup");
@@ -106,14 +105,14 @@ function handleProfileEditSubmit(obj) {
   api
     .editProfile(obj)
     .then((obj) => {
-      editPopup.renderLoading(true);
+      editPopup.renderLoading(true, "Save");
       userInfo.setUserInfo(obj);
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
-      editPopup.renderLoading(false);
+      editPopup.renderLoading(false, "Save");
     });
 }
 
@@ -121,7 +120,7 @@ function handlePhotoAddSubmit(obj) {
   api
     .addNewCard(obj)
     .then((obj) => {
-      addPopup.renderLoading(true);
+      addPopup.renderLoading(true, "Create");
       const newCard = createCard(obj, "#card-template");
       section.addItem(newCard);
     })
@@ -129,7 +128,7 @@ function handlePhotoAddSubmit(obj) {
       console.log(err);
     })
     .finally(() => {
-      editPopup.renderLoading(false);
+      addPopup.renderLoading(false, "Create");
     });
 }
 
@@ -138,14 +137,14 @@ function handleCardDeleteSubmit(obj) {
   api
     .deleteCard(obj)
     .then(() => {
-      deletePopup.renderLoading(true);
-      cardElement.removeCard(obj);
+      deletePopup.renderLoading(true, "Save");
+      // cardElement.removeCard(obj);
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
-      editPopup.renderLoading(false);
+      deletePopup.renderLoading(false, "Save");
     });
 }
 
@@ -153,13 +152,14 @@ function handleProfilePhotoSubmit(obj) {
   api
     .editProfilePhoto(obj)
     .then((obj) => {
+      changePopup.renderLoading(true, "Save");
       userInfo.setUserInfo(obj);
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
-      editPopup.renderLoading(false);
+      changePopup.renderLoading(false, "Save");
     });
 }
 /* ----------------------- */

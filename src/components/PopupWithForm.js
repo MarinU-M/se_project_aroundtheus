@@ -63,9 +63,12 @@ export default class PopupWithForm extends Popup {
   }
 
   // render loading message
-  renderLoading(isLoading) {
+  renderLoading(isLoading, defaultText) {
     if (isLoading) {
       this._submitBtn.textContent = "Saving...";
+    }
+    if (!isLoading) {
+      this._submitBtn.textContent = defaultText;
     }
   }
 }
