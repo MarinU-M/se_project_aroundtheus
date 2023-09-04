@@ -97,15 +97,20 @@ function createCard(cardData) {
           })
           .finally(() => {
             deletePopup.renderLoading(false);
+            deletePopup.close();
           })
       );
       deletePopup.setEventListeners(cardId);
     },
     (cardId) => {
-      api.addCardLike(cardId);
+      api.addCardLike(cardId).catch((err) => {
+        console.log(err);
+      });
     },
     (cardId) => {
-      api.removeCardLike(cardId);
+      api.removeCardLike(cardId).catch((err) => {
+        console.log(err);
+      });
     }
   );
   return cardElement.getView();
