@@ -8,7 +8,6 @@ export default class PopupWithForm extends Popup {
     this._submitBtn = this._popupForm.querySelector(".popup__save");
     this._handleFormSubmit = handleFormSubmit;
     this._inputs = this._popupForm.querySelectorAll(".popup__input");
-    this._deleteBtn = this._popupEl.querySelector(".popup__save");
   }
 
   //   collects data from all the input fields and returns that data as an object.
@@ -23,23 +22,10 @@ export default class PopupWithForm extends Popup {
   //   add the submit event handler to the form and the click event listener to the close icon
   setEventListeners() {
     super.setEventListeners();
-    // this._renderLoading(true);
     this._popupForm.addEventListener("submit", (evt) => {
       evt.preventDefault();
       const inputValues = this._getInputValues();
       this._handleFormSubmit(inputValues);
-      this.close();
-      // this._renderLoading(false);
-    });
-  }
-
-  // add the submit event handler to the button and the click event listener to the close icon
-  setDeleteEventListeners(obj) {
-    super.setEventListeners();
-    this._popupForm.addEventListener("submit", (evt) => {
-      // console.log(evt);
-      evt.preventDefault();
-      this._handleFormSubmit(obj);
       this.close();
     });
   }

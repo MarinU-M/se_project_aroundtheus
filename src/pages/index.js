@@ -3,6 +3,7 @@ import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 import {
@@ -42,11 +43,11 @@ const editPopup = new PopupWithForm("#profile-popup", (obj) => {
 const addPopup = new PopupWithForm("#photo-add-popup", (obj) => {
   handlePhotoAddSubmit(obj);
 });
-const deletePopup = new PopupWithForm("#photo-delete-popup", (obj) => {
-  handleCardDeleteSubmit(obj);
-});
 const changePopup = new PopupWithForm("#profile-photo-popup", (obj) => {
   handleProfilePhotoSubmit(obj);
+});
+const deletePopup = new PopupWithConfirmation("#photo-delete-popup", (obj) => {
+  handleCardDeleteSubmit(obj);
 });
 const photoPopup = new PopupWithImage("#full-photo-popup");
 
@@ -83,8 +84,7 @@ function createCard(cardData) {
     },
     (cardId) => {
       deletePopup.open();
-
-      deletePopup.setDeleteEventListeners(cardId);
+      deletePopup.setEventListeners(cardId);
       deletePopup.setSubmitAction(
         (cardId) => {
           cardElement.removeCard(cardId);
@@ -137,14 +137,14 @@ function handleCardDeleteSubmit(obj) {
   api
     .deleteCard(obj)
     .then(() => {
-      deletePopup.renderLoading(true, "Save");
+      deletePopup.renderLoading(true);
       // cardElement.removeCard(obj);
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
-      deletePopup.renderLoading(false, "Save");
+      deletePopup.renderLoading(false);
     });
 }
 

@@ -5,7 +5,7 @@ export default class Card {
     handleCardClick,
     handleDeleteClick,
     addLikeClick,
-    deleteLikeClick
+    removeLikeClick
   ) {
     this._name = data.name;
     this._link = data.link;
@@ -15,7 +15,7 @@ export default class Card {
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
     this._addLikeClick = addLikeClick;
-    this._deleteLikeClick = deleteLikeClick;
+    this._removeLikeClick = removeLikeClick;
 
     this._element = this._cardSelector.content
       .querySelector(".card")
@@ -32,7 +32,7 @@ export default class Card {
       this._addLikeClick(this._id);
     } else {
       this._likeBtn.classList.remove("card__like-button_active");
-      this._deleteLikeClick(this._id);
+      this._removeLikeClick(this._id);
     }
   }
 
