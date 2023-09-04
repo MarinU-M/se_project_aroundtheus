@@ -24,6 +24,10 @@ const api = new Api({
     "Content-Type": "application/json",
   },
 });
+// get user info from the server and set profile section
+api.getUsersInfo().then((res) => {
+  return userInfo.setUserInfo(res);
+});
 
 const userInfo = new UserInfo(
   "#profile__name",
@@ -31,25 +35,21 @@ const userInfo = new UserInfo(
   "#profile__image"
 );
 
-// get user info from the server and set profile section
-api.getUsersInfo().then((res) => {
-  console.log(res);
-  return userInfo.setUserInfo(res);
-});
-
 const editPopup = new PopupWithForm("#profile-popup", (obj) => {
   handleProfileEditSubmit(obj);
 });
+
 const addPopup = new PopupWithForm("#photo-add-popup", (obj) => {
   handlePhotoAddSubmit(obj);
 });
+
 const changePopup = new PopupWithForm("#profile-photo-popup", (obj) => {
   handleProfilePhotoSubmit(obj);
 });
-const deletePopup = new PopupWithConfirmation("#photo-delete-popup", (obj) => {
-  handleCardDeleteSubmit(obj);
-});
+
 const photoPopup = new PopupWithImage("#full-photo-popup");
+
+const deletePopup = new PopupWithConfirmation("#photo-delete-popup");
 
 /* ----------------------- */
 /*     Form Validation     */
@@ -84,29 +84,40 @@ function createCard(cardData) {
     },
     (cardId) => {
       deletePopup.open();
-      deletePopup.setEventListeners(cardId);
       deletePopup.setSubmitAction(
-        (cardId) => {
-          cardElement.removeCard(cardId);
-        },
-        (cardId) => {
-          api.addCardLike(cardId);
-        },
-        (cardId) => {
-          api.deleteCardLike(cardId);
-        }
+        deletePopup.renderLoading(true),
+        api
+          .deleteCard(cardId)
+          .then(() => {
+            // cardElement.removeCard(obj);
+            cardElement.removeCard(cardId);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+          .finally(() => {
+            deletePopup.renderLoading(false);
+          })
       );
+      deletePopup.setEventListeners(cardId);
+    },
+    (cardId) => {
+      api.addCardLike(cardId);
+    },
+    (cardId) => {
+      api.removeCardLike(cardId);
     }
   );
   return cardElement.getView();
 }
 
 function handleProfileEditSubmit(obj) {
+  editPopup.renderLoading(true, "Save");
   api
     .editProfile(obj)
     .then((obj) => {
-      editPopup.renderLoading(true, "Save");
       userInfo.setUserInfo(obj);
+      editPopup.close();
     })
     .catch((err) => {
       console.log(err);
@@ -117,10 +128,10 @@ function handleProfileEditSubmit(obj) {
 }
 
 function handlePhotoAddSubmit(obj) {
+  addPopup.renderLoading(true, "Create");
   api
     .addNewCard(obj)
     .then((obj) => {
-      addPopup.renderLoading(true, "Create");
       const newCard = createCard(obj, "#card-template");
       section.addItem(newCard);
     })
@@ -128,16 +139,17 @@ function handlePhotoAddSubmit(obj) {
       console.log(err);
     })
     .finally(() => {
+      addPopup.close();
       addPopup.renderLoading(false, "Create");
     });
 }
 
 function handleCardDeleteSubmit(obj) {
-  console.log(obj);
+  deletePopup.renderLoading(true);
   api
     .deleteCard(obj)
     .then(() => {
-      deletePopup.renderLoading(true);
+      console.log(obj);
       // cardElement.removeCard(obj);
     })
     .catch((err) => {
@@ -149,11 +161,12 @@ function handleCardDeleteSubmit(obj) {
 }
 
 function handleProfilePhotoSubmit(obj) {
+  changePopup.renderLoading(true, "Save");
   api
     .editProfilePhoto(obj)
     .then((obj) => {
-      changePopup.renderLoading(true, "Save");
       userInfo.setUserInfo(obj);
+      changePopup.close();
     })
     .catch((err) => {
       console.log(err);
@@ -174,7 +187,6 @@ changePopup.setEventListeners();
 // handle the profile edit popup
 profileEditBtn.addEventListener("click", () => {
   const { name, about } = userInfo.getUserInfo();
-  console.log(name);
   editPopup.setInputValues({ name, about });
   editPopup.open();
   formValidators["profile_form"].resetValidation();
