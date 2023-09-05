@@ -29,11 +29,6 @@ export default class PopupWithForm extends Popup {
     });
   }
 
-  //
-  setSubmitAction(action) {
-    this._handleFormSubmit = action;
-  }
-
   //   to reset the form once the popup is closed.
   close() {
     this._popupForm.reset();
