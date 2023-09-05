@@ -145,23 +145,22 @@ function createCard(cardData) {
     },
     (cardId) => {
       deletePopup.open();
-      deletePopup.setSubmitAction(
+      deletePopup.setSubmitAction(() => {
         deletePopup.renderLoading(true),
-        api
-          .deleteCard(cardId)
-          .then(() => {
-            // cardElement.removeCard(obj);
-            cardElement.removeCard(cardId);
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-          .finally(() => {
-            deletePopup.renderLoading(false);
-            deletePopup.close();
-          })
-      );
-      deletePopup.setEventListeners(cardId);
+          api
+            .deleteCard(cardId)
+            .then(() => {
+              // cardElement.removeCard(obj);
+              cardElement.removeCard(cardId);
+            })
+            .catch((err) => {
+              console.log(err);
+            })
+            .finally(() => {
+              deletePopup.renderLoading(false);
+              deletePopup.close();
+            });
+      });
     },
     (cardId) => {
       api.addCardLike(cardId).catch((err) => {
@@ -211,6 +210,7 @@ editPopup.setEventListeners();
 addPopup.setEventListeners();
 photoPopup.setEventListeners();
 changePopup.setEventListeners();
+deletePopup.setEventListeners();
 
 // handle the profile edit popup
 profileEditBtn.addEventListener("click", () => {
