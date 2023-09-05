@@ -12,6 +12,7 @@ export default class Api {
       return Promise.reject(`Error: ${res.status}`);
     }
   }
+
   getUsersInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: {
@@ -28,6 +29,10 @@ export default class Api {
         authorization: this._authorization,
       },
     }).then((res) => this._checkServerResponse(res));
+  }
+
+  getAPIInfo() {
+    return Promise.all([this.getUsersInfo(), this.getCardList()]);
   }
 
   editProfile(obj) {

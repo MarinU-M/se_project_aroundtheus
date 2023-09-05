@@ -15,6 +15,26 @@ import {
 import "../pages/index.css";
 
 /* ----------------------- */
+/*     Form Validation     */
+/* ----------------------- */
+const formValidators = {};
+// enable validation
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement);
+    // get the name of the form
+    const formName = formElement.getAttribute("name");
+
+    // store a validator by the `name` of the form
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(config);
+
+/* ----------------------- */
 /*     Class Instances     */
 /* ----------------------- */
 const api = new Api({
@@ -23,10 +43,6 @@ const api = new Api({
     authorization: "6d3d8659-087c-48a4-9b8b-b1f3f711b21d",
     "Content-Type": "application/json",
   },
-});
-// get user info from the server and set profile section
-api.getUsersInfo().then((res) => {
-  return userInfo.setUserInfo(res);
 });
 
 const userInfo = new UserInfo(
@@ -51,30 +67,75 @@ const photoPopup = new PopupWithImage("#full-photo-popup");
 
 const deletePopup = new PopupWithConfirmation("#photo-delete-popup");
 
-/* ----------------------- */
-/*     Form Validation     */
-/* ----------------------- */
-const formValidators = {};
-// enable validation
-const enableValidation = (config) => {
-  const formList = Array.from(document.querySelectorAll(config.formSelector));
-  formList.forEach((formElement) => {
-    const validator = new FormValidator(config, formElement);
-    // get the name of the form
-    const formName = formElement.getAttribute("name");
-
-    // store a validator by the `name` of the form
-    formValidators[formName] = validator;
-    validator.enableValidation();
-  });
-};
-
-enableValidation(config);
-
 /* ------------------ */
 /*      Functions     */
 /* ------------------ */
+function handleProfileEditSubmit(obj) {
+  editPopup.renderLoading(true, "Save");
+  api
+    .editProfile(obj)
+    .then((obj) => {
+      userInfo.setUserInfo(obj);
+      editPopup.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      editPopup.renderLoading(false, "Save");
+    });
+}
 
+function handlePhotoAddSubmit(obj) {
+  addPopup.renderLoading(true, "Create");
+  api
+    .addNewCard(obj)
+    .then((obj) => {
+      const newCard = createCard(obj, "#card-template");
+      section.addItem(newCard);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      addPopup.close();
+      addPopup.renderLoading(false, "Create");
+    });
+}
+
+function handleProfilePhotoSubmit(obj) {
+  changePopup.renderLoading(true, "Save");
+  api
+    .editProfilePhoto(obj)
+    .then((obj) => {
+      userInfo.setUserInfo(obj);
+      changePopup.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      changePopup.renderLoading(false, "Save");
+    });
+}
+
+// function handleCardDeleteSubmit(obj) {
+//   deletePopup.renderLoading(true);
+//   api
+//     .deleteCard(obj)
+//     .then(() => {
+//       console.log(obj);
+//       // cardElement.removeCard(obj);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     })
+//     .finally(() => {
+//       deletePopup.renderLoading(false);
+//     });
+// }
+
+// create card element
 function createCard(cardData) {
   const cardElement = new Card(
     cardData,
@@ -116,70 +177,32 @@ function createCard(cardData) {
   return cardElement.getView();
 }
 
-function handleProfileEditSubmit(obj) {
-  editPopup.renderLoading(true, "Save");
-  api
-    .editProfile(obj)
-    .then((obj) => {
-      userInfo.setUserInfo(obj);
-      editPopup.close();
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      editPopup.renderLoading(false, "Save");
-    });
-}
+/* --------------------- */
+/*      Initial Info     */
+/* --------------------- */
 
-function handlePhotoAddSubmit(obj) {
-  addPopup.renderLoading(true, "Create");
-  api
-    .addNewCard(obj)
-    .then((obj) => {
-      const newCard = createCard(obj, "#card-template");
-      section.addItem(newCard);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      addPopup.close();
-      addPopup.renderLoading(false, "Create");
-    });
-}
+// load card list and user info from the server and render them
+let section;
+api
+  .getAPIInfo()
+  .then(([profile, cards]) => {
+    userInfo.setUserInfo(profile);
+    section = new Section(
+      {
+        items: cards,
+        renderer: (cardData) => {
+          const newCard = createCard(cardData);
+          section.addItem(newCard);
+        },
+      },
+      "#gallery__cards"
+    );
+    section.renderItems();
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
-function handleCardDeleteSubmit(obj) {
-  deletePopup.renderLoading(true);
-  api
-    .deleteCard(obj)
-    .then(() => {
-      console.log(obj);
-      // cardElement.removeCard(obj);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      deletePopup.renderLoading(false);
-    });
-}
-
-function handleProfilePhotoSubmit(obj) {
-  changePopup.renderLoading(true, "Save");
-  api
-    .editProfilePhoto(obj)
-    .then((obj) => {
-      userInfo.setUserInfo(obj);
-      changePopup.close();
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      changePopup.renderLoading(false, "Save");
-    });
-}
 /* ----------------------- */
 /*      Event Listner      */
 /* ----------------------- */
@@ -207,21 +230,4 @@ photoAddBtn.addEventListener("click", () => {
 profilePhoto.addEventListener("click", () => {
   changePopup.open();
   formValidators["profile_photo_form"].resetValidation();
-});
-
-// load card list from server
-let section;
-api.getCardList().then((res) => {
-  const cardList = res;
-  section = new Section(
-    {
-      items: cardList,
-      renderer: (cardData) => {
-        const newCard = createCard(cardData);
-        section.addItem(newCard);
-      },
-    },
-    "#gallery__cards"
-  );
-  return section.renderItems();
 });
