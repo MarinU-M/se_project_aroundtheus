@@ -152,13 +152,13 @@ function createCard(cardData) {
             .then(() => {
               // cardElement.removeCard(obj);
               cardElement.removeCard(cardId);
+              deletePopup.close();
             })
             .catch((err) => {
               console.log(err);
             })
             .finally(() => {
               deletePopup.renderLoading(false);
-              deletePopup.close();
             });
       });
     },
