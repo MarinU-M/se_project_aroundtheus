@@ -93,12 +93,12 @@ function handlePhotoAddSubmit(obj) {
     .then((obj) => {
       const newCard = createCard(obj, "#card-template");
       section.addItem(newCard);
+      addPopup.close();
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
-      addPopup.close();
       addPopup.renderLoading(false, "Create");
     });
 }
