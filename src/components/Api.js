@@ -19,7 +19,7 @@ export default class Api {
         method: "GET",
         authorization: this._authorization,
       },
-    }).then((res) => this._checkServerResponse(res));
+    }).then(this._checkServerResponse);
   }
 
   getCardList() {
@@ -28,7 +28,7 @@ export default class Api {
         method: "GET",
         authorization: this._authorization,
       },
-    }).then((res) => this._checkServerResponse(res));
+    }).then(this._checkServerResponse);
   }
 
   getAPIInfo() {
@@ -46,7 +46,7 @@ export default class Api {
         name: obj.name,
         about: obj.about,
       }),
-    }).then((res) => this._checkServerResponse(res));
+    }).then(this._checkServerResponse);
   }
 
   addNewCard(obj) {
@@ -60,7 +60,7 @@ export default class Api {
         name: obj.name,
         link: obj.link,
       }),
-    }).then((res) => this._checkServerResponse(res));
+    }).then(this._checkServerResponse);
   }
 
   deleteCard(cardId) {
@@ -70,7 +70,7 @@ export default class Api {
         authorization: this._authorization,
         "Content-Type": "application/json",
       },
-    }).then((res) => this._checkServerResponse(res));
+    }).then(this._checkServerResponse);
   }
 
   addCardLike(cardId) {
@@ -80,7 +80,7 @@ export default class Api {
         authorization: this._authorization,
         "Content-Type": "application/json",
       },
-    }).then((res) => this._checkServerResponse(res));
+    }).then(this._checkServerResponse);
   }
 
   removeCardLike(cardId) {
@@ -90,7 +90,7 @@ export default class Api {
         authorization: this._authorization,
         "Content-Type": "application/json",
       },
-    }).then((res) => this._checkServerResponse(res));
+    }).then(this._checkServerResponse);
   }
 
   editProfilePhoto(obj) {
@@ -103,6 +103,6 @@ export default class Api {
       body: JSON.stringify({
         avatar: obj.link,
       }),
-    }).then((res) => this._checkServerResponse(res));
+    }).then(this._checkServerResponse);
   }
 }
