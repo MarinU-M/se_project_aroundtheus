@@ -108,7 +108,7 @@ function handleProfilePhotoSubmit(obj) {
   api
     .editProfilePhoto(obj)
     .then((obj) => {
-      userInfo.setUserInfo(obj);
+      userInfo.setUserPhoto(obj);
       changePopup.close();
     })
     .catch((err) => {
@@ -144,6 +144,7 @@ function createCard(cardData) {
       photoPopup.open(cardData);
     },
     (cardId) => {
+      console.log(cardId);
       deletePopup.open();
       deletePopup.setSubmitAction(() => {
         deletePopup.renderLoading(true),
@@ -164,15 +165,15 @@ function createCard(cardData) {
     },
     (cardId) => {
       console.log(cardId);
-      if (cardId.isLiked()) {
+      if (cardElement.isLiked()) {
         api
           .removeCardLike(cardId)
-          .then((res) => cardId.setIsLiked(res._isLiked))
+          .then((res) => cardElement.setIsLiked(res._isLiked))
           .catch((err) => console.log(err));
       } else {
         api
           .addCardLike(cardId)
-          .then((res) => cardId.setIsLiked(res._isLiked))
+          .then((res) => cardElement.setIsLiked(res._isLiked))
           .catch((err) => console.log(err));
       }
     }
@@ -195,6 +196,7 @@ api
   .getAPIInfo()
   .then(([profile, cards]) => {
     userInfo.setUserInfo(profile);
+    userInfo.setUserPhoto(profile);
     section = new Section(
       {
         items: cards,

@@ -10,8 +10,12 @@ export default class UserInfo {
     this._userInfo = {
       name: this._name.textContent,
       about: this._job.textContent,
-      avatar: this._avatar.src,
     };
+    return this._userInfo;
+  }
+
+  getUserPhoto() {
+    this._userInfo = { avatar: this._avatar.src };
     return this._userInfo;
   }
 
@@ -19,6 +23,9 @@ export default class UserInfo {
   setUserInfo(obj) {
     this._name.textContent = obj.name;
     this._job.textContent = obj.about;
+  }
+
+  setUserPhoto(obj) {
     this._avatar.src = obj.avatar;
   }
 }
