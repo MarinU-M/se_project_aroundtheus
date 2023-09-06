@@ -4,8 +4,8 @@ export default class Card {
     cardSelector,
     handleCardClick,
     handleDeleteClick,
-    addLikeClick,
-    removeLikeClick
+    handleLikeClick
+    // removeLikeClick
   ) {
     this._name = data.name;
     this._link = data.link;
@@ -14,8 +14,8 @@ export default class Card {
 
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
-    this._addLikeClick = addLikeClick;
-    this._removeLikeClick = removeLikeClick;
+    this._handleLikeClick = handleLikeClick;
+    // this._removeLikeClick = removeLikeClick;
 
     this._element = this._cardSelector.content
       .querySelector(".card")
@@ -26,13 +26,23 @@ export default class Card {
     this._cardTitle = this._element.querySelector("#card__title");
   }
 
+  // call this method from index.js after successful api response in `then` block
+  setIsLiked(isLiked) {
+    this._isLiked = isLiked;
+    this._handleLikeIcon();
+  }
+
+  isLiked() {
+    return this._isLiked;
+  }
+
   _handleLikeIcon() {
-    if (!this._likeBtn.classList.contains("card__like-button_active")) {
+    if (this._isLiked) {
       this._likeBtn.classList.add("card__like-button_active");
-      this._addLikeClick(this._id);
+      // this._addLikeClick(this._id);
     } else {
       this._likeBtn.classList.remove("card__like-button_active");
-      this._removeLikeClick(this._id);
+      // this._removeLikeClick(this._id);
     }
   }
 
@@ -43,7 +53,7 @@ export default class Card {
   _setEventListeners() {
     // #card__like-button
     this._likeBtn.addEventListener("click", () => {
-      this._handleLikeIcon();
+      this._handleLikeClick();
     });
     // #card__delete-button
     this._deleteBtn.addEventListener("click", () => {
@@ -58,7 +68,7 @@ export default class Card {
   getView() {
     // set event listener
     this._setEventListeners();
-
+    this._handleLikeIcon();
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._cardTitle.textContent = this._name;

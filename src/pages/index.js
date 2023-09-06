@@ -163,15 +163,23 @@ function createCard(cardData) {
       });
     },
     (cardId) => {
-      api.addCardLike(cardId).catch((err) => {
-        console.log(err);
-      });
-    },
-    (cardId) => {
-      api.removeCardLike(cardId).catch((err) => {
-        console.log(err);
-      });
+      if (cardId.isLiked()) {
+        api
+          .removeCardLike(cardId)
+          .then((res) => cardId.setIsLiked(res._isLiked))
+          .catch((err) => console.log(err));
+      } else {
+        api
+          .addCardLike(cardId)
+          .then((res) => cardId.setIsLiked(res._isLiked))
+          .catch((err) => console.log(err));
+      }
     }
+    // (cardId) => {
+    //   api.removeCardLike(cardId).catch((err) => {
+    //     console.log(err);
+    //   });
+    // }
   );
   return cardElement.getView();
 }
