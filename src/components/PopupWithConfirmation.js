@@ -5,7 +5,8 @@ export default class PopupWithForm extends Popup {
     super(popupSelector);
     this._popupForm = this._popupEl.querySelector(".popup__form");
     // this._handleFormSubmit = handleFormSubmit;
-    this._deleteBtn = this._popupEl.querySelector(".popup__save");
+    this._deleteBtnText =
+      this._popupEl.querySelector(".popup__save").textContent;
   }
 
   //
@@ -15,10 +16,10 @@ export default class PopupWithForm extends Popup {
 
   renderLoading(isLoading) {
     if (isLoading) {
-      this._deleteBtn.textContent = "Saving...";
+      this._deleteBtnText = "Saving...";
     }
     if (!isLoading) {
-      this._deleteBtn.textContent = "Yes";
+      this._deleteBtnText = "Yes";
     }
   }
   // add the submit event handler to the button and the click event listener to the close icon

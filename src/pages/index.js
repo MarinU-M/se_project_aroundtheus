@@ -163,6 +163,7 @@ function createCard(cardData) {
       });
     },
     (cardId) => {
+      console.log(cardId);
       if (cardId.isLiked()) {
         api
           .removeCardLike(cardId)
