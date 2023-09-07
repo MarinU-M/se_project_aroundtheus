@@ -171,12 +171,12 @@ function createCard(cardData) {
       if (cardElement.isLiked()) {
         api
           .removeCardLike(cardId)
-          .then((res) => cardElement.setIsLiked(res._isLiked))
+          .then((res) => cardElement.setIsLiked(res.isLiked))
           .catch((err) => console.log(err));
       } else {
         api
           .addCardLike(cardId)
-          .then((res) => cardElement.setIsLiked(res._isLiked))
+          .then((res) => cardElement.setIsLiked(res.isLiked))
           .catch((err) => console.log(err));
       }
     }
