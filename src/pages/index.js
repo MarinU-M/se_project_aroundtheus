@@ -119,22 +119,6 @@ function handleProfilePhotoSubmit(obj) {
     });
 }
 
-// function handleCardDeleteSubmit(obj) {
-//   deletePopup.renderLoading(true);
-//   api
-//     .deleteCard(obj)
-//     .then(() => {
-//       console.log(obj);
-//       // cardElement.removeCard(obj);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     })
-//     .finally(() => {
-//       deletePopup.renderLoading(false);
-//     });
-// }
-
 // create card element
 function createCard(cardData) {
   const cardElement = new Card(
@@ -144,14 +128,13 @@ function createCard(cardData) {
       photoPopup.open(cardData);
     },
     (cardId) => {
-      console.log(cardId);
       deletePopup.open();
+      // deletePopup.renderLoading(true),
       deletePopup.setSubmitAction(() => {
         deletePopup.renderLoading(true),
           api
             .deleteCard(cardId)
             .then(() => {
-              // cardElement.removeCard(obj);
               cardElement.removeCard(cardId);
               deletePopup.close();
             })
@@ -164,10 +147,6 @@ function createCard(cardData) {
       });
     },
     (cardId) => {
-      console.log(cardId);
-      console.log(typeof cardId);
-      console.log(cardElement);
-      console.log(cardData);
       if (cardElement.isLiked()) {
         api
           .removeCardLike(cardId)
@@ -180,11 +159,6 @@ function createCard(cardData) {
           .catch((err) => console.log(err));
       }
     }
-    // (cardId) => {
-    //   api.removeCardLike(cardId).catch((err) => {
-    //     console.log(err);
-    //   });
-    // }
   );
   return cardElement.getView();
 }

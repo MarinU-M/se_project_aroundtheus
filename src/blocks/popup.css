@@ -116,6 +116,7 @@
   border: 1px solid rgba(0, 0, 0, 0.2);
   background-color: #fff;
   color: rgba(0, 0, 0, 0.2);
+  cursor: default;
 }
 
 .popup__save:hover {

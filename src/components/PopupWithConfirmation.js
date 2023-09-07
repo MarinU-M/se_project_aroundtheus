@@ -4,9 +4,8 @@ export default class PopupWithForm extends Popup {
   constructor(popupSelector) {
     super(popupSelector);
     this._popupForm = this._popupEl.querySelector(".popup__form");
-    // this._handleFormSubmit = handleFormSubmit;
-    this._deleteBtnText =
-      this._popupEl.querySelector(".popup__save").textContent;
+    this._deleteBtn = this._popupEl.querySelector(".popup__save");
+    this._deleteBtnText = this._deleteBtn.textContent;
   }
 
   //
@@ -17,8 +16,7 @@ export default class PopupWithForm extends Popup {
   renderLoading(isLoading) {
     if (isLoading) {
       this._deleteBtnText = "Saving...";
-    }
-    if (!isLoading) {
+    } else {
       this._deleteBtnText = "Yes";
     }
   }
