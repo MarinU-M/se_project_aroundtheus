@@ -91,7 +91,7 @@ function handlePhotoAddSubmit(obj) {
   api
     .addNewCard(obj)
     .then((obj) => {
-      const newCard = createCard(obj, "#card-template");
+      const newCard = createCard(obj);
       section.addItem(newCard);
       addPopup.close();
     })
@@ -165,6 +165,9 @@ function createCard(cardData) {
     },
     (cardId) => {
       console.log(cardId);
+      console.log(typeof cardId);
+      console.log(cardElement);
+      console.log(cardData);
       if (cardElement.isLiked()) {
         api
           .removeCardLike(cardId)
