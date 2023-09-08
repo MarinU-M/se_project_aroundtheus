@@ -131,19 +131,19 @@ function createCard(cardData) {
       deletePopup.open();
       // deletePopup.renderLoading(true),
       deletePopup.setSubmitAction(() => {
-        deletePopup.renderLoading(true),
-          api
-            .deleteCard(cardId)
-            .then(() => {
-              cardElement.removeCard(cardId);
-              deletePopup.close();
-            })
-            .catch((err) => {
-              console.log(err);
-            })
-            .finally(() => {
-              deletePopup.renderLoading(false);
-            });
+        deletePopup.renderLoading(true);
+        api
+          .deleteCard(cardId)
+          .then(() => {
+            cardElement.removeCard(cardId);
+            deletePopup.close();
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+          .finally(() => {
+            deletePopup.renderLoading(false);
+          });
       });
     },
     (cardId) => {
