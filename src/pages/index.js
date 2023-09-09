@@ -3,36 +3,16 @@ import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api.js";
 import {
-  initialCards,
   config,
   profileEditBtn,
   photoAddBtn,
+  profilePhoto,
 } from "../utils/constants.js";
 import "../pages/index.css";
-
-/* ----------------------- */
-/*     Class Instances     */
-/* ----------------------- */
-const userInfo = new UserInfo("#profile__name", "#profile__description");
-const editPopup = new PopupWithForm("#profile-popup", (obj) => {
-  handleProfileEditSubmit(obj);
-});
-const addPopup = new PopupWithForm("#photo-add-popup", (obj) => {
-  handlePhotoAddSubmit(obj);
-});
-const photoPopup = new PopupWithImage("#full-photo-popup");
-const section = new Section(
-  {
-    items: initialCards,
-    renderer: (cardData) => {
-      const newCard = createCard(cardData, "#card-template");
-      section.addItem(newCard);
-    },
-  },
-  "#gallery__cards"
-);
 
 /* ----------------------- */
 /*     Form Validation     */
@@ -43,10 +23,10 @@ const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach((formElement) => {
     const validator = new FormValidator(config, formElement);
-    // here you get the name of the form
+    // get the name of the form
     const formName = formElement.getAttribute("name");
 
-    // here you store a validator by the `name` of the form
+    // store a validator by the `name` of the form
     formValidators[formName] = validator;
     validator.enableValidation();
   });
@@ -54,34 +34,161 @@ const enableValidation = (config) => {
 
 enableValidation(config);
 
+/* ----------------------- */
+/*     Class Instances     */
+/* ----------------------- */
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "6d3d8659-087c-48a4-9b8b-b1f3f711b21d",
+    "Content-Type": "application/json",
+  },
+});
+
+const userInfo = new UserInfo(
+  "#profile__name",
+  "#profile__description",
+  "#profile__image"
+);
+
+const editPopup = new PopupWithForm("#profile-popup", (obj) => {
+  handleProfileEditSubmit(obj);
+});
+
+const addPopup = new PopupWithForm("#photo-add-popup", (obj) => {
+  handlePhotoAddSubmit(obj);
+});
+
+const changePopup = new PopupWithForm("#profile-photo-popup", (obj) => {
+  handleProfilePhotoSubmit(obj);
+});
+
+const photoPopup = new PopupWithImage("#full-photo-popup");
+
+const deletePopup = new PopupWithConfirmation("#photo-delete-popup");
+
 /* ------------------ */
 /*      Functions     */
 /* ------------------ */
-
-function createCard(cardData, cardTemplate) {
-  const cardElement = new Card(cardData, cardTemplate, (cardData) => {
-    photoPopup.open(cardData);
-  });
-  return cardElement.getView();
-}
-
 function handleProfileEditSubmit(obj) {
-  const { name, description } = obj;
-  userInfo.setUserInfo(name, description);
-  editPopup.close();
+  editPopup.renderLoading(true, "Save");
+  api
+    .editProfile(obj)
+    .then((obj) => {
+      userInfo.setUserInfo(obj);
+      editPopup.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      editPopup.renderLoading(false, "Save");
+    });
 }
 
 function handlePhotoAddSubmit(obj) {
-  const cardData = {
-    name: obj.title,
-    link: obj.image,
-  };
-  const newCard = createCard(cardData, "#card-template");
-  section.addItem(newCard);
+  addPopup.renderLoading(true, "Create");
+  api
+    .addNewCard(obj)
+    .then((obj) => {
+      const newCard = createCard(obj);
+      section.addItem(newCard);
+      addPopup.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      addPopup.renderLoading(false, "Create");
+    });
 }
 
-// render initialcards
-section.renderItems();
+function handleProfilePhotoSubmit(obj) {
+  changePopup.renderLoading(true, "Save");
+  api
+    .editProfilePhoto(obj)
+    .then((obj) => {
+      userInfo.setUserPhoto(obj);
+      changePopup.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      changePopup.renderLoading(false, "Save");
+    });
+}
+
+// create card element
+function createCard(cardData) {
+  const cardElement = new Card(
+    cardData,
+    "#card-template",
+    (cardData) => {
+      photoPopup.open(cardData);
+    },
+    (cardId) => {
+      deletePopup.open();
+      // deletePopup.renderLoading(true),
+      deletePopup.setSubmitAction(() => {
+        deletePopup.renderLoading(true);
+        api
+          .deleteCard(cardId)
+          .then(() => {
+            cardElement.removeCard(cardId);
+            deletePopup.close();
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+          .finally(() => {
+            deletePopup.renderLoading(false);
+          });
+      });
+    },
+    (cardId) => {
+      if (cardElement.isLiked()) {
+        api
+          .removeCardLike(cardId)
+          .then((res) => cardElement.setIsLiked(res.isLiked))
+          .catch((err) => console.log(err));
+      } else {
+        api
+          .addCardLike(cardId)
+          .then((res) => cardElement.setIsLiked(res.isLiked))
+          .catch((err) => console.log(err));
+      }
+    }
+  );
+  return cardElement.getView();
+}
+
+/* --------------------- */
+/*      Initial Info     */
+/* --------------------- */
+
+// load card list and user info from the server and render them
+let section;
+api
+  .getAPIInfo()
+  .then(([profile, cards]) => {
+    userInfo.setUserInfo(profile);
+    userInfo.setUserPhoto(profile);
+    section = new Section(
+      {
+        items: cards,
+        renderer: (cardData) => {
+          const newCard = createCard(cardData);
+          section.addItem(newCard);
+        },
+      },
+      "#gallery__cards"
+    );
+    section.renderItems();
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 /* ----------------------- */
 /*      Event Listner      */
@@ -90,11 +197,13 @@ section.renderItems();
 editPopup.setEventListeners();
 addPopup.setEventListeners();
 photoPopup.setEventListeners();
+changePopup.setEventListeners();
+deletePopup.setEventListeners();
 
 // handle the profile edit popup
 profileEditBtn.addEventListener("click", () => {
-  const { name, description } = userInfo.getUserInfo();
-  editPopup.setInputValues({ name, description });
+  const { name, about } = userInfo.getUserInfo();
+  editPopup.setInputValues({ name, about });
   editPopup.open();
   formValidators["profile_form"].resetValidation();
 });
@@ -103,4 +212,10 @@ profileEditBtn.addEventListener("click", () => {
 photoAddBtn.addEventListener("click", () => {
   addPopup.open();
   formValidators["photo_form"].resetValidation();
+});
+
+// handle the profile photo change popup
+profilePhoto.addEventListener("click", () => {
+  changePopup.open();
+  formValidators["profile_photo_form"].resetValidation();
 });

@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link rel="shortcut icon" href="./favicon.ico" />
     <title>Around The U.S.</title>
   </head>
   <body class="page">
@@ -19,9 +20,11 @@
         <section class="profile page__section">
           <img
             class="profile__image"
+            id="profile__image"
             src="<%=require('./images/jacques-cousteau.jpg')%>"
-            alt="Photo of Jacques Cousteau"
+            alt="Photo of user"
           />
+          <button class="profile__image-edit" type="button"></button>
           <div class="profile__info">
             <h1 class="profile__name" id="profile__name">Jacques Cousteau</h1>
             <button
@@ -72,7 +75,7 @@
           <label class="popup__label">
             <input
               type="text"
-              name="description"
+              name="about"
               class="popup__input"
               placeholder="Description"
               id="description-input"
@@ -100,7 +103,7 @@
           <label class="popup__label">
             <input
               type="text"
-              name="title"
+              name="name"
               class="popup__input"
               placeholder="Title"
               id="title-input"
@@ -113,7 +116,7 @@
           <label class="popup__label">
             <input
               type="url"
-              name="image"
+              name="link"
               class="popup__input"
               placeholder="Image Link"
               id="image-link-input"
@@ -136,6 +139,47 @@
         ></button>
         <img src="#" alt="#" class="popup__full-photo" />
         <p class="popup__title"></p>
+      </div>
+    </div>
+
+    <!-- Photo Delete popup-->
+    <div class="popup" id="photo-delete-popup">
+      <div class="popup__container">
+        <button
+          class="popup__close"
+          id="photo-delete-close"
+          type="button"
+        ></button>
+        <p class="popup__heading">Are you sure?</p>
+        <form class="popup__form" name="delete_form">
+          <button class="popup__save" type="submit">Yes</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Profile photo edit popup -->
+    <div class="popup" id="profile-photo-popup">
+      <div class="popup__container">
+        <button
+          class="popup__close"
+          id="profile-photo-close"
+          type="button"
+        ></button>
+        <p class="popup__heading">Change profile picture</p>
+        <form class="popup__form" name="profile_photo_form">
+          <label class="popup__label">
+            <input
+              type="url"
+              name="link"
+              class="popup__input"
+              placeholder="Image Link"
+              id="profile-photo-input"
+              required
+            />
+            <span class="popup__error" id="profile-photo-input-error"></span>
+          </label>
+          <button class="popup__save" type="submit">Save</button>
+        </form>
       </div>
     </div>
 
