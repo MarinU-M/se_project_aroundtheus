@@ -12,7 +12,6 @@ export default class Popup {
 
   close() {
     this._popupEl.classList.remove("popup_opened");
-    console.log(this);
     document.removeEventListener("keydown", this._closeByEscape);
   }
 
@@ -26,6 +25,7 @@ export default class Popup {
   // setEventListeners() that adds a event listener to close the popup when clicked overlay or close button
   setEventListeners() {
     this._popupEl.addEventListener("mousedown", (evt) => {
+      // evt.preventDefault();
       if (evt.target.classList.contains("popup_opened")) {
         this.close();
       }
