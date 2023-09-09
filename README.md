@@ -10,7 +10,7 @@
 
 **Intro**
 
-This project is made so all the elements are displayed correctly on popular screen sizes. We recommend investing more time in completing this project, since it's more difficult than previous ones.
+This project is made so all the elements are displayed correctly on popular screen sizes, and all the information are fetched from a server via API.
 
 **Figma**
 
@@ -18,9 +18,7 @@ This project is made so all the elements are displayed correctly on popular scre
 
 **Images**
 
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster.
-
-Good luck and have fun!
+![Project image](https://github.com/MarinU-M/se_project_aroundtheus/assets/133256866/8c2dd903-b360-4fab-933f-fb7361a3a56c)
 
 **Github page**
 
@@ -37,3 +35,4 @@ Good luck and have fun!
 
 - JavaScript
   - Popup screen
+  - Data fetch from API
