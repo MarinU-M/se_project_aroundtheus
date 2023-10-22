@@ -11,6 +11,8 @@
 **Intro**
 
 This project is made so all the elements are displayed correctly on popular screen sizes, and all the information are fetched from a server via API.
+This app let a user upload beautiful photos from your exiting travel to share, like/unlike the photo, delete the photo.
+A user cna also tailor information of yours like name, icon photo, and title.
 
 **Figma**
 
