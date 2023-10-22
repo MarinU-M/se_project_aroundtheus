@@ -27,6 +27,8 @@ This project is made so all the elements are displayed correctly on popular scre
 **Technologies**
 
 - BEM method
+- NPM
+- Webpack
 
 - flexbox
 - grid
