@@ -5,14 +5,14 @@
 - Intro
 - Figma
 - Images
-- Github page (06/07 added)
+- GitHub page (06/07 added)
 - Technologies (06/18 updated)
 
 **Intro**
 
-This project is made so all the elements are displayed correctly on popular screen sizes, and all the information are fetched from a server via API.
-This app let a user upload beautiful photos from your exiting travel to share, like/unlike the photo, delete the photo.
-A user cna also tailor information of yours like name, icon photo, and title.
+This project is made so all the elements are displayed correctly on popular screen sizes, and all the information is fetched from a server via API.
+This app lets users upload beautiful photos from their exciting travels to share, like/unlike the photo, or delete the photo.
+Users can also tailor their information like name, icon photo, and title.
 
 **Figma**
 
@@ -22,7 +22,7 @@ A user cna also tailor information of yours like name, icon photo, and title.
 
 ![Project image](https://github.com/MarinU-M/se_project_aroundtheus/assets/133256866/8c2dd903-b360-4fab-933f-fb7361a3a56c)
 
-**Github page**
+**GitHub page**
 
 - [Link to the finished project on github](https://marinu-m.github.io/se_project_aroundtheus/)
 
